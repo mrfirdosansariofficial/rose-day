@@ -7,9 +7,12 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
+
+/* ===== PINK ROMANTIC BACKGROUND ===== */
 body{
   height:100vh;
-  background:radial-gradient(circle at top,#1a1a40,#000);
+  background:
+    radial-gradient(circle at top, #ffd1dc 0%, #ff9a9e 35%, #ff6a88 70%, #ff4d6d 100%);
   display:flex;
   justify-content:center;
   align-items:center;
@@ -18,21 +21,26 @@ body{
   color:#fff;
 }
 
-/* Animated light beams */
-.light{
+/* ===== SOFT LIGHTING / GLOW ===== */
+.glow{
   position:absolute;
-  width:200%;
-  height:200%;
-  background:conic-gradient(from 180deg,#ff4d6d,#8a2be2,#00eaff,#ff4d6d);
-  animation:rotate 18s linear infinite;
-  opacity:.15;
+  inset:-50%;
+  background:
+    conic-gradient(from 0deg,
+      rgba(255,255,255,.12),
+      rgba(255,77,109,.25),
+      rgba(255,255,255,.12),
+      rgba(255,154,158,.25),
+      rgba(255,255,255,.12));
+  animation:spin 22s linear infinite;
+  filter:blur(40px);
 }
-@keyframes rotate{
+@keyframes spin{
   from{transform:rotate(0deg);}
   to{transform:rotate(360deg);}
 }
 
-/* Start overlay */
+/* ===== START OVERLAY ===== */
 .start{
   position:absolute;
   inset:0;
@@ -41,32 +49,35 @@ body{
   justify-content:center;
   align-items:center;
   z-index:10;
-  backdrop-filter:blur(10px);
-  background:rgba(0,0,0,.4);
+  backdrop-filter:blur(12px);
+  background:rgba(255,255,255,.15);
 }
-.sound-btn{
-  padding:18px 28px;
-  border-radius:50px;
-  font-size:1.1rem;
+.start-btn{
+  padding:18px 32px;
+  border-radius:999px;
   cursor:pointer;
-  background:linear-gradient(135deg,#ff4d6d,#ff0080);
-  box-shadow:0 0 25px #ff4d6d,0 0 60px rgba(255,77,109,.6);
-  animation:pulse 1.6s infinite;
+  font-size:1.1rem;
+  letter-spacing:.5px;
+  background:linear-gradient(135deg,#ff4d6d,#ff9a9e);
+  box-shadow:
+    0 0 20px rgba(255,77,109,.8),
+    0 0 60px rgba(255,77,109,.6);
+  animation:pulse 1.5s infinite;
 }
 @keyframes pulse{
   0%,100%{transform:scale(1);}
   50%{transform:scale(1.08);}
 }
 .start small{
-  margin-top:15px;
-  opacity:.8;
+  margin-top:14px;
+  opacity:.85;
 }
 
-/* Glass card */
+/* ===== GLASS SLIDER ===== */
 .slider{
   width:90%;
-  max-width:420px;
-  height:300px;
+  max-width:440px;
+  height:310px;
   position:relative;
   display:none;
   z-index:5;
@@ -74,12 +85,12 @@ body{
 .slide{
   position:absolute;
   inset:0;
-  background:rgba(255,255,255,0.12);
-  backdrop-filter:blur(22px);
-  border-radius:26px;
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(24px);
+  border-radius:28px;
   box-shadow:
-    0 30px 60px rgba(0,0,0,.6),
-    inset 0 0 40px rgba(255,255,255,.08);
+    0 30px 60px rgba(0,0,0,.35),
+    inset 0 0 40px rgba(255,255,255,.18);
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -87,37 +98,38 @@ body{
   text-align:center;
   opacity:0;
   transform:scale(.92);
-  transition:all .9s ease;
+  transition:all .8s ease;
 }
 .slide.active{
   opacity:1;
   transform:scale(1);
 }
 
-/* Premium text */
+/* ===== PREMIUM TEXT ===== */
 .slide h1{
   font-size:2.4rem;
-  background:linear-gradient(90deg,#ff4d6d,#ffd1dc,#ff4d6d);
+  background:linear-gradient(90deg,#ffffff,#ffe6ec,#ffffff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  text-shadow:0 0 25px rgba(255,77,109,.7);
+  text-shadow:0 0 25px rgba(255,255,255,.6);
 }
 .slide p{
   margin-top:14px;
   font-size:1.25rem;
-  opacity:.9;
+  color:#fff;
+  opacity:.95;
 }
 </style>
 </head>
 
 <body>
 
-<div class="light"></div>
+<div class="glow"></div>
 
 <!-- START -->
 <div class="start" id="start">
-  <div class="sound-btn" onclick="startExperience()">🔊 Enable Sound</div>
-  <small>For best experience</small>
+  <div class="start-btn" onclick="startExperience()">❤️ Start with Music</div>
+  <small>For best romantic experience</small>
 </div>
 
 <!-- SLIDER -->
@@ -136,29 +148,30 @@ body{
   </div>
 </div>
 
+<!-- BACKGROUND MUSIC (ARIJIT-STYLE INSTRUMENTAL) -->
 <audio id="music" loop preload="auto">
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2022/10/26/audio_5b0c7b7c1a.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-let slides=document.querySelectorAll(".slide");
-let index=0;
+let slides = document.querySelectorAll(".slide");
+let index = 0;
 
 function startExperience(){
   document.getElementById("start").style.display="none";
   document.getElementById("slider").style.display="block";
 
-  // Music (100% allowed – user gesture)
-  const audio=document.getElementById("music");
-  audio.volume=.6;
+  // Music (allowed after user tap)
+  const audio = document.getElementById("music");
+  audio.volume = 0.7;
   audio.play();
 
-  // Fast cinematic slider
+  // Fast romantic slider
   setInterval(()=>{
     slides[index].classList.remove("active");
-    index=(index+1)%slides.length;
+    index = (index + 1) % slides.length;
     slides[index].classList.add("active");
-  },2800);
+  },3000);
 }
 </script>
 
