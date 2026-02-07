@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Rose Day ❤️</title>
+<title>Tanya ❤️ I Love You</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -14,12 +14,12 @@ body{
   justify-content:center;
   align-items:center;
   background:
-    radial-gradient(circle at top,#ffd6e0,#ff8fab,#ff4d6d);
+    radial-gradient(circle at top,#ffd1dc,#ff8fab,#ff4d6d);
   font-family:'Poppins',Arial,sans-serif;
   overflow:hidden;
 }
 
-/* ===== LIGHTING ===== */
+/* SOFT LIGHTING */
 body::before{
   content:"";
   position:absolute;
@@ -30,95 +30,92 @@ body::before{
     rgba(255,77,109,.45),
     rgba(255,255,255,.25)
   );
-  animation:spin 18s linear infinite;
-  filter:blur(60px);
+  animation:spin 22s linear infinite;
+  filter:blur(70px);
 }
-@keyframes spin{
-  to{transform:rotate(360deg);}
-}
+@keyframes spin{to{transform:rotate(360deg);}}
 
-/* ===== START SCREEN ===== */
+/* START OVERLAY */
 .start{
   position:absolute;
   inset:0;
   display:flex;
-  flex-direction:column;
   justify-content:center;
   align-items:center;
-  backdrop-filter:blur(14px);
-  background:rgba(255,255,255,.18);
-  z-index:10;
+  backdrop-filter:blur(18px);
+  background:rgba(255,255,255,.25);
+  z-index:5;
 }
 .start button{
   border:none;
-  cursor:pointer;
-  padding:20px 36px;
-  border-radius:999px;
+  padding:20px 38px;
   font-size:1.2rem;
-  background:linear-gradient(135deg,#ff4d6d,#ff9a9e);
+  border-radius:999px;
+  cursor:pointer;
   color:white;
-  box-shadow:0 0 30px #ff4d6d,0 0 80px #ff4d6d;
-  animation:pulse 1.4s infinite;
+  background:linear-gradient(135deg,#ff4d6d,#ff9a9e);
+  box-shadow:0 0 30px #ff4d6d,0 0 90px #ff4d6d;
+  animation:pulse 1.3s infinite;
 }
-@keyframes pulse{
-  50%{transform:scale(1.1);}
-}
+@keyframes pulse{50%{transform:scale(1.1);}}
 
-/* ===== SLIDER ===== */
+/* SINGLE SLIDER CARD */
 .slider{
   width:90%;
   max-width:420px;
-  height:300px;
-  position:relative;
+  height:320px;
   display:none;
 }
 
 .slide{
-  position:absolute;
-  inset:0;
-  border-radius:30px;
-  background:
-    linear-gradient(135deg,
-      rgba(255,255,255,.35),
-      rgba(255,255,255,.15));
-  backdrop-filter:blur(25px);
+  width:100%;
+  height:100%;
+  border-radius:32px;
+  background:linear-gradient(
+    135deg,
+    rgba(255,255,255,.45),
+    rgba(255,255,255,.15)
+  );
+  backdrop-filter:blur(26px);
   box-shadow:
-    0 40px 80px rgba(0,0,0,.35),
-    inset 0 0 30px rgba(255,255,255,.35),
-    0 0 35px rgba(255,77,109,.6);
+    0 40px 90px rgba(0,0,0,.35),
+    inset 0 0 35px rgba(255,255,255,.45),
+    0 0 40px rgba(255,77,109,.7);
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
-  opacity:0;
-  transform:scale(.9);
-  transition:all .7s ease;
+  animation:fade 1s ease;
 }
-.slide.active{
-  opacity:1;
-  transform:scale(1);
+@keyframes fade{
+  from{opacity:0;transform:scale(.9);}
+  to{opacity:1;transform:scale(1);}
 }
 
-/* ===== TEXT ===== */
+/* COLORFUL TEXT */
 h1{
-  font-size:2.2rem;
-  background:linear-gradient(90deg,#fff,#ffe6ec,#fff);
+  font-size:2.3rem;
+  background:linear-gradient(90deg,#ff1744,#ff80ab,#fff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  text-shadow:0 0 25px rgba(255,255,255,.7);
+  text-shadow:0 0 25px rgba(255,23,68,.8);
 }
 p{
-  margin-top:12px;
+  margin-top:14px;
   font-size:1.2rem;
-  color:#fff;
+  background:linear-gradient(90deg,#ff4081,#ffccdc);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-/* ===== ICONS ===== */
+/* ICON */
 .icon{
-  font-size:3rem;
-  margin-bottom:10px;
-  text-shadow:0 0 25px rgba(255,0,70,.8);
+  font-size:3.2rem;
+  margin-bottom:12px;
+  text-shadow:
+    0 0 20px #ff1744,
+    0 0 40px #ff4d6d;
 }
 </style>
 </head>
@@ -127,26 +124,12 @@ p{
 
 <!-- START -->
 <div class="start" id="start">
-  <button onclick="startRomance()">❤️ Tap to Start Love</button>
+  <button onclick="startLove()">❤️ Tap to Feel Love</button>
 </div>
 
 <!-- SLIDER -->
 <div class="slider" id="slider">
-  <div class="slide active">
-    <div class="icon">🌹</div>
-    <h1>Happy Rose Day</h1>
-    <p>My love begins with you</p>
-  </div>
-  <div class="slide">
-    <div class="icon">❤️</div>
-    <h1>Tania</h1>
-    <p>You are my forever</p>
-  </div>
-  <div class="slide">
-    <div class="icon">💖</div>
-    <h1>I Love You</h1>
-    <p>— Firdos Ansari</p>
-  </div>
+  <div class="slide" id="slide"></div>
 </div>
 
 <!-- MUSIC -->
@@ -155,22 +138,36 @@ p{
 </audio>
 
 <script>
-const slides=document.querySelectorAll(".slide");
+const slides=[
+  {icon:"🌹",title:"Happy Rose Day Tanya",text:"You are my most beautiful feeling"},
+  {icon:"❤️",title:"Tanya I Love You",text:"My heart beats only for you"},
+  {icon:"💖",title:"Forever Us",text:"— Yours, Firdos"}
+];
+
 let i=0;
 
-function startRomance(){
+function render(){
+  const s=slides[i];
+  document.getElementById("slide").innerHTML=`
+    <div class="icon">${s.icon}</div>
+    <h1>${s.title}</h1>
+    <p>${s.text}</p>
+  `;
+}
+
+function startLove(){
   document.getElementById("start").style.display="none";
   document.getElementById("slider").style.display="block";
 
   const music=document.getElementById("music");
-  music.volume=0.7;
-  music.play(); // guaranteed after tap
+  music.volume=0.75;
+  music.play();
 
+  render();
   setInterval(()=>{
-    slides[i].classList.remove("active");
     i=(i+1)%slides.length;
-    slides[i].classList.add("active");
-  },2500);
+    render();
+  },2200);
 }
 </script>
 
