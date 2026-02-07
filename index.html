@@ -19,18 +19,18 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:radial-gradient(circle at top,#ffe4ec,#ff9fb8,#ff5c8a);
+  background:radial-gradient(circle at top,#ffd6e5,#ff9fb8,#ff5c8a);
 }
 
-/* START SCREEN */
+/* START BUTTON */
 .start{
   position:absolute;
   inset:0;
   display:flex;
   justify-content:center;
   align-items:center;
-  background:rgba(255,255,255,.3);
-  backdrop-filter:blur(18px);
+  background:rgba(255,255,255,.25);
+  backdrop-filter:blur(16px);
   z-index:10;
 }
 .start button{
@@ -42,10 +42,8 @@ body{
   cursor:pointer;
   color:white;
   background:linear-gradient(135deg,#ff1744,#ff80ab);
-  box-shadow:
-    0 0 30px #ff1744,
-    0 0 80px #ff80ab;
-  animation:pulse 1.4s infinite;
+  box-shadow:0 0 30px #ff1744,0 0 80px #ff80ab;
+  animation:pulse 1.3s infinite;
 }
 @keyframes pulse{
   0%,100%{transform:scale(1);}
@@ -60,34 +58,33 @@ body{
   border-radius:32px;
   background:linear-gradient(
     135deg,
-    rgba(255,255,255,.55),
-    rgba(255,255,255,.2)
+    rgba(255,255,255,.45),
+    rgba(255,255,255,.18)
   );
-  backdrop-filter:blur(26px);
+  backdrop-filter:blur(24px);
   box-shadow:
     0 35px 80px rgba(0,0,0,.35),
-    inset 0 0 35px rgba(255,255,255,.5);
+    inset 0 0 35px rgba(255,255,255,.4);
   display:none;
   justify-content:center;
   align-items:center;
   text-align:center;
 }
 
-/* TEXT */
+/* TEXT – PURE WHITE */
 .title{
   font-size:2.3rem;
   font-weight:700;
-  background:linear-gradient(90deg,#6a1b9a,#d81b60,#ff4081);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  text-shadow:0 0 22px rgba(255,64,129,.7);
+  color:#ffffff;
+  text-shadow:0 0 20px rgba(255,255,255,.6);
 }
 .subtitle{
   margin-top:12px;
-  font-size:1.25rem;
-  color:#7b1fa2;
+  font-size:1.3rem;
+  color:#ffffff;
   opacity:.95;
 }
+
 .fade{
   animation:fade .6s ease;
 }
@@ -100,9 +97,9 @@ body{
 
 <body>
 
-<!-- START BUTTON -->
+<!-- START -->
 <div class="start" id="start">
-  <button onclick="startLove()">💖 Click to Start Love 💖</button>
+  <button onclick="startLove()">❤️ Click to Start ❤️</button>
 </div>
 
 <!-- CARD -->
@@ -121,10 +118,10 @@ body{
 <script>
 const slides=[
   {t:"🌹 Happy Rose Day 🌹", s:"Tania ❤️"},
-  {t:"Tania Meri Jaan 😘", s:"You are my forever 💖"},
+  {t:"Tania Meri Jaan 😘", s:"You are my forever 💕"},
   {t:"Babu ❤️", s:"My heart belongs to you"},
-  {t:"Ummaah 😘", s:"Love you more everyday 🌹"},
-  {t:"I Love You ❤️", s:"Forever & Always 💕"}
+  {t:"Ummaah 😘", s:"Love you endlessly 🌹"},
+  {t:"I Love You ❤️", s:"Forever & Always 💖"}
 ];
 
 let i=0;
@@ -133,13 +130,12 @@ function startLove(){
   document.getElementById("start").style.display="none";
   document.getElementById("card").style.display="flex";
 
-  // start music
   const audio=document.getElementById("music");
   audio.volume=0.75;
   audio.play();
 
   changeText();
-  setInterval(changeText,2000); // FAST & SMOOTH
+  setInterval(changeText,2000);
 }
 
 function changeText(){
