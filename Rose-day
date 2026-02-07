@@ -1,1 +1,43 @@
-index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Rose Day ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:radial-gradient(circle at top,#2b1055,#000);
+  font-family:Arial,sans-serif;
+  overflow:hidden;
+  color:#fff;
+}
+.text{
+  text-align:center;
+  font-size:clamp(2.5rem,5vw,4rem);
+  font-weight:bold;
+  color:#ff4d6d;
+  animation:float 4s ease-in-out infinite;
+  text-shadow:0 0 20px #ff4d6d;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-20px);}
+}
+</style>
+</head>
+
+<body>
+  <div class="text">
+    Happy Rose Day 🌹<br>
+    Tania ❤️<br><br>
+    <small>I love you — Firdos Ansari 💕</small>
+  </div>
+</body>
+</html>
