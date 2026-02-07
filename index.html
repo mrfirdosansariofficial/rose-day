@@ -7,19 +7,23 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-
 html,body{
   height:100%;
   overflow:hidden;
   font-family:'Poppins',Arial,sans-serif;
 }
 
-/* BACKGROUND */
+/* 🌸 PURE PINK ROMANTIC BACKGROUND */
 body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:radial-gradient(circle at top,#ffd6e5,#ff9fb8,#ff5c8a);
+  background:linear-gradient(
+    180deg,
+    #ffb6c1 0%,
+    #ff69b4 50%,
+    #ff1493 100%
+  );
 }
 
 /* START BUTTON */
@@ -29,8 +33,8 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:rgba(255,255,255,.25);
-  backdrop-filter:blur(16px);
+  background:rgba(255,182,193,.35);
+  backdrop-filter:blur(14px);
   z-index:10;
 }
 .start button{
@@ -41,13 +45,8 @@ body{
   border-radius:999px;
   cursor:pointer;
   color:white;
-  background:linear-gradient(135deg,#ff1744,#ff80ab);
-  box-shadow:0 0 30px #ff1744,0 0 80px #ff80ab;
-  animation:pulse 1.3s infinite;
-}
-@keyframes pulse{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.1);}
+  background:linear-gradient(135deg,#ff1744,#ff69b4);
+  box-shadow:0 0 30px #ff1744,0 0 80px #ff69b4;
 }
 
 /* CARD */
@@ -56,41 +55,45 @@ body{
   max-width:440px;
   height:300px;
   border-radius:32px;
-  background:linear-gradient(
-    135deg,
-    rgba(255,255,255,.45),
-    rgba(255,255,255,.18)
-  );
-  backdrop-filter:blur(24px);
-  box-shadow:
-    0 35px 80px rgba(0,0,0,.35),
-    inset 0 0 35px rgba(255,255,255,.4);
+  background:rgba(255,255,255,.35);
+  backdrop-filter:blur(22px);
+  box-shadow:0 35px 80px rgba(0,0,0,.35);
   display:none;
   justify-content:center;
   align-items:center;
   text-align:center;
 }
 
-/* TEXT – PURE WHITE */
-.title{
-  font-size:2.3rem;
+/* TEXT */
+.text{
+  color:white;
+  font-size:2.1rem;
   font-weight:700;
-  color:#ffffff;
   text-shadow:0 0 20px rgba(255,255,255,.6);
 }
-.subtitle{
-  margin-top:12px;
-  font-size:1.3rem;
-  color:#ffffff;
-  opacity:.95;
+
+/* ORIGINAL EMOJI FIX */
+.emoji{
+  font-family:
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Noto Color Emoji",
+    "Android Emoji",
+    sans-serif;
+  font-size:2.6rem;
+  line-height:1.2;
+  display:block;
+  margin-bottom:8px;
+  filter:none !important;
+  text-shadow:none !important;
 }
 
-.fade{
-  animation:fade .6s ease;
-}
-@keyframes fade{
-  from{opacity:0;transform:scale(.92);}
-  to{opacity:1;transform:scale(1);}
+/* SUBTEXT */
+.sub{
+  margin-top:10px;
+  font-size:1.3rem;
+  color:white;
+  opacity:.95;
 }
 </style>
 </head>
@@ -104,10 +107,7 @@ body{
 
 <!-- CARD -->
 <div class="card" id="card">
-  <div id="content">
-    <div class="title">🌹 Happy Rose Day 🌹</div>
-    <div class="subtitle">Tania ❤️</div>
-  </div>
+  <div id="content"></div>
 </div>
 
 <!-- MUSIC -->
@@ -117,11 +117,11 @@ body{
 
 <script>
 const slides=[
-  {t:"🌹 Happy Rose Day 🌹", s:"Tania ❤️"},
-  {t:"Tania Meri Jaan 😘", s:"You are my forever 💕"},
-  {t:"Babu ❤️", s:"My heart belongs to you"},
-  {t:"Ummaah 😘", s:"Love you endlessly 🌹"},
-  {t:"I Love You ❤️", s:"Forever & Always 💖"}
+  {e:"🌹", t:"Happy Rose Day", s:"Tania ❤️"},
+  {e:"❤️", t:"Tania Meri Jaan", s:"You are my forever"},
+  {e:"😘", t:"Babu", s:"My heart is yours"},
+  {e:"🌹", t:"Ummaah", s:"Love you endlessly"},
+  {e:"❤️", t:"I Love You", s:"Forever & Always"}
 ];
 
 let i=0;
@@ -134,19 +134,16 @@ function startLove(){
   audio.volume=0.75;
   audio.play();
 
-  changeText();
-  setInterval(changeText,2000);
+  show();
+  setInterval(show,1800);
 }
 
-function changeText(){
+function show(){
   const c=document.getElementById("content");
-  c.classList.remove("fade");
-  void c.offsetWidth;
-  c.classList.add("fade");
-
   c.innerHTML=`
-    <div class="title">${slides[i].t}</div>
-    <div class="subtitle">${slides[i].s}</div>
+    <div class="emoji">${slides[i].e}</div>
+    <div class="text">${slides[i].t}</div>
+    <div class="sub">${slides[i].s}</div>
   `;
   i=(i+1)%slides.length;
 }
