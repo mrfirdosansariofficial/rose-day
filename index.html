@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Tania ❤️ Cinematic Love</title>
+<title>Tania ❤️ Rose Day</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -10,122 +10,51 @@
 html,body{
   height:100%;
   overflow:hidden;
-  font-family:'Poppins',Arial,sans-serif;
+  font-family:Arial, sans-serif;
 }
 
-/* 🎬 CINEMATIC PINK BACKGROUND */
+/* 💗 PINK BACKGROUND */
 body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:
-    radial-gradient(circle at center,#ffb6c1,#ff5c8a,#c2185b);
+  background:linear-gradient(180deg,#ffb6c1,#ff69b4,#ff1493);
 }
 
-/* 🎥 VIGNETTE */
-body::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle,transparent 40%,rgba(0,0,0,.35) 100%);
-  pointer-events:none;
-}
-
-/* ✨ FLOATING LIGHTS */
-.light{
-  position:absolute;
-  width:6px;
-  height:6px;
-  background:rgba(255,255,255,.7);
-  border-radius:50%;
-  animation:float 8s linear infinite;
-}
-@keyframes float{
-  from{transform:translateY(100vh);opacity:0;}
-  20%{opacity:1;}
-  to{transform:translateY(-20vh);opacity:0;}
-}
-
-/* 🎬 START SCREEN */
+/* START SCREEN */
 .start{
   position:absolute;
   inset:0;
   display:flex;
   justify-content:center;
   align-items:center;
-  backdrop-filter:blur(20px);
   background:rgba(255,182,193,.4);
   z-index:10;
 }
-
-/* 💎 CINEMATIC BUTTON */
 .start button{
+  padding:18px 36px;
+  font-size:1.2rem;
   border:none;
-  padding:22px 50px;
-  font-size:1.35rem;
-  font-weight:700;
-  border-radius:999px;
+  border-radius:50px;
+  background:#ff1744;
+  color:#fff;
   cursor:pointer;
-  color:white;
-  background:linear-gradient(135deg,#ff1744,#ff69b4);
-  box-shadow:
-    0 0 40px rgba(255,23,68,1),
-    0 0 120px rgba(255,105,180,.9);
-  animation:heartbeat 1.6s infinite;
-  position:relative;
-  overflow:hidden;
-}
-.start button::after{
-  content:"";
-  position:absolute;
-  top:-60%;
-  left:-40%;
-  width:40%;
-  height:220%;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,.8),transparent);
-  transform:rotate(25deg);
-  animation:shine 3s infinite;
-}
-@keyframes heartbeat{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.15);}
-}
-@keyframes shine{
-  0%{left:-50%;}
-  100%{left:130%;}
 }
 
-/* 🎞️ GLASS CARD */
+/* CARD */
 .card{
-  width:90%;
-  max-width:440px;
-  height:320px;
-  border-radius:34px;
-  background:rgba(255,255,255,.35);
-  backdrop-filter:blur(26px);
-  box-shadow:
-    0 40px 100px rgba(0,0,0,.45),
-    inset 0 0 40px rgba(255,255,255,.5);
+  width:85%;
+  max-width:420px;
+  height:280px;
+  background:rgba(255,255,255,.25);
+  border-radius:25px;
   display:none;
   justify-content:center;
   align-items:center;
   text-align:center;
-  animation:cinematicIn 1.2s ease;
-}
-@keyframes cinematicIn{
-  from{opacity:0;transform:scale(.85);}
-  to{opacity:1;transform:scale(1);}
 }
 
-/* 🤍 TEXT */
-.text{
-  color:white;
-  font-size:2.2rem;
-  font-weight:700;
-  text-shadow:0 0 25px rgba(255,255,255,.7);
-}
-
-/* 🌹 ORIGINAL EMOJI */
+/* TEXT */
 .emoji{
   font-family:
     "Apple Color Emoji",
@@ -133,88 +62,81 @@ body::after{
     "Noto Color Emoji",
     "Android Emoji",
     sans-serif;
-  font-size:2.8rem;
-  display:block;
-  margin-bottom:10px;
-  filter:none!important;
-  text-shadow:none!important;
+  font-size:2.6rem;
 }
-
-/* SUB */
-.sub{
-  margin-top:10px;
-  font-size:1.35rem;
+.text{
+  font-size:2rem;
   color:white;
-  opacity:.95;
+  margin-top:10px;
+}
+.sub{
+  font-size:1.2rem;
+  color:white;
+  margin-top:8px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎬 START -->
+<!-- START -->
 <div class="start" id="start">
-  <button onclick="startMovie()">🎬 Start Our Love Story ❤️</button>
+  <button onclick="startLove()">❤️ Start ❤️</button>
 </div>
 
-<!-- 🎞️ CARD -->
+<!-- CARD -->
 <div class="card" id="card">
-  <div id="content"></div>
+  <div>
+    <div class="emoji" id="emoji">🌹</div>
+    <div class="text" id="text">Happy Rose Day</div>
+    <div class="sub" id="sub">Tania ❤️</div>
+  </div>
 </div>
 
-<!-- 🎵 MUSIC -->
+<!-- MUSIC -->
 <audio id="music" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/10/26/audio_5b0c7b7c1a.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* 🌫️ PARTICLES */
-for(let i=0;i<20;i++){
-  let l=document.createElement("div");
-  l.className="light";
-  l.style.left=Math.random()*100+"vw";
-  l.style.animationDelay=Math.random()*8+"s";
-  document.body.appendChild(l);
-}
-
-/* 🎬 SLIDES */
-const slides=[
-  {e:"🌹", t:"Happy Rose Day", s:"Tania ❤️"},
-  {e:"❤️", t:"Tania Meri Jaan👩‍❤️‍👨", s:"You are my forever"},
-  {e:"😘", t:"Babu🌻", s:"My heart beats for you"},
-  {e:"🌹", t:"Ummaah😘", s:"Every breath loves you"},
-  {e:"❤️", t:"I Love You", s:"Forever & Always"}
-  {e:"🤱", t:"Tania Mere Bacche ki Mummy Banogi", s:"on god Zindagi Bhar Bahut Pyaar Karunga👩‍❤️‍👨"}
+/* ✅ CORRECTED SLIDES ARRAY */
+const slides = [
+  { e:"🌹", t:"Happy Rose Day", s:"Tania ❤️" },
+  { e:"❤️", t:"Tania Meri Jaan 👩‍❤️‍👨", s:"You are my forever" },
+  { e:"😘", t:"Babu 🌻", s:"My heart beats for you" },
+  { e:"🌹", t:"Ummaah 😘", s:"Every breath loves you" },
+  { e:"❤️", t:"I Love You", s:"Forever & Always" },
+  { e:"🤱", t:"Tania Mere Bacche ki Mummy Banogi", s:"On God Zindagi Bhar Bahut Pyaar Karunga 👩‍❤️‍👨" }
 ];
 
-let i=0;
+let i = 0;
 
-function startMovie(){
-  document.getElementById("start").style.display="none";
-  document.getElementById("card").style.display="flex";
+function startLove(){
+  document.getElementById("start").style.display = "none";
+  document.getElementById("card").style.display = "flex";
 
-  /* 🎵 FADE-IN MUSIC */
-  const audio=document.getElementById("music");
-  audio.volume=0;
+  // 🎵 Music fade-in (safe)
+  const audio = document.getElementById("music");
+  audio.volume = 0;
   audio.play();
-  let v=0;
-  const fade=setInterval(()=>{
-    if(v<0.75){v+=0.02;audio.volume=v;}
-    else clearInterval(fade);
-  },150);
 
-  show();
-  setInterval(show,2000);
+  let v = 0;
+  setInterval(()=>{
+    if(v < 0.7){
+      v += 0.05;
+      audio.volume = v;
+    }
+  },200);
+
+  changeSlide();
+  setInterval(changeSlide,2000);
 }
 
-function show(){
-  const c=document.getElementById("content");
-  c.innerHTML=`
-    <div class="emoji">${slides[i].e}</div>
-    <div class="text">${slides[i].t}</div>
-    <div class="sub">${slides[i].s}</div>
-  `;
-  i=(i+1)%slides.length;
+function changeSlide(){
+  document.getElementById("emoji").innerText = slides[i].e;
+  document.getElementById("text").innerText  = slides[i].t;
+  document.getElementById("sub").innerText   = slides[i].s;
+  i = (i + 1) % slides.length;
 }
 </script>
 
