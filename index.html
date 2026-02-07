@@ -2,173 +2,109 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Tanya ❤️ I Love You</title>
+<title>Tania ❤️ Meri Jaan</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,body{
+  height:100%;
+  overflow:hidden; /* PAGE LOCK */
+  font-family:'Poppins',Arial,sans-serif;
+}
 
 body{
-  height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  background:
-    radial-gradient(circle at top,#ffd1dc,#ff8fab,#ff4d6d);
-  font-family:'Poppins',Arial,sans-serif;
-  overflow:hidden;
+  background:radial-gradient(circle at top,#ffd1dc,#ff8fab,#ff4d6d);
 }
 
-/* SOFT LIGHTING */
-body::before{
-  content:"";
-  position:absolute;
-  inset:-50%;
-  background:conic-gradient(
-    from 0deg,
-    rgba(255,255,255,.25),
-    rgba(255,77,109,.45),
-    rgba(255,255,255,.25)
-  );
-  animation:spin 22s linear infinite;
-  filter:blur(70px);
-}
-@keyframes spin{to{transform:rotate(360deg);}}
-
-/* START OVERLAY */
-.start{
-  position:absolute;
-  inset:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  backdrop-filter:blur(18px);
-  background:rgba(255,255,255,.25);
-  z-index:5;
-}
-.start button{
-  border:none;
-  padding:20px 38px;
-  font-size:1.2rem;
-  border-radius:999px;
-  cursor:pointer;
-  color:white;
-  background:linear-gradient(135deg,#ff4d6d,#ff9a9e);
-  box-shadow:0 0 30px #ff4d6d,0 0 90px #ff4d6d;
-  animation:pulse 1.3s infinite;
-}
-@keyframes pulse{50%{transform:scale(1.1);}}
-
-/* SINGLE SLIDER CARD */
-.slider{
+/* GLASS CARD */
+.card{
   width:90%;
   max-width:420px;
-  height:320px;
-  display:none;
-}
-
-.slide{
-  width:100%;
-  height:100%;
-  border-radius:32px;
+  height:300px;
+  border-radius:30px;
   background:linear-gradient(
     135deg,
-    rgba(255,255,255,.45),
-    rgba(255,255,255,.15)
+    rgba(255,255,255,.35),
+    rgba(255,255,255,.12)
   );
-  backdrop-filter:blur(26px);
+  backdrop-filter:blur(25px);
   box-shadow:
-    0 40px 90px rgba(0,0,0,.35),
-    inset 0 0 35px rgba(255,255,255,.45),
-    0 0 40px rgba(255,77,109,.7);
+    0 30px 80px rgba(0,0,0,.35),
+    inset 0 0 30px rgba(255,255,255,.4);
   display:flex;
-  flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
-  animation:fade 1s ease;
 }
+
+/* TEXT */
+.text{
+  font-size:2.2rem;
+  font-weight:700;
+  background:linear-gradient(
+    90deg,
+    #7b1fa2,
+    #c2185b,
+    #880e4f
+  );
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 18px rgba(123,31,162,.6);
+  animation:fade 0.6s ease;
+}
+
 @keyframes fade{
   from{opacity:0;transform:scale(.9);}
   to{opacity:1;transform:scale(1);}
-}
-
-/* COLORFUL TEXT */
-h1{
-  font-size:2.3rem;
-  background:linear-gradient(90deg,#ff1744,#ff80ab,#fff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  text-shadow:0 0 25px rgba(255,23,68,.8);
-}
-p{
-  margin-top:14px;
-  font-size:1.2rem;
-  background:linear-gradient(90deg,#ff4081,#ffccdc);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-/* ICON */
-.icon{
-  font-size:3.2rem;
-  margin-bottom:12px;
-  text-shadow:
-    0 0 20px #ff1744,
-    0 0 40px #ff4d6d;
 }
 </style>
 </head>
 
 <body>
 
-<!-- START -->
-<div class="start" id="start">
-  <button onclick="startLove()">❤️ Tap to Feel Love</button>
+<div class="card">
+  <div class="text" id="text"></div>
 </div>
 
-<!-- SLIDER -->
-<div class="slider" id="slider">
-  <div class="slide" id="slide"></div>
-</div>
-
-<!-- MUSIC -->
-<audio id="music" loop>
+<!-- BACKGROUND MUSIC -->
+<audio id="music" autoplay loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/10/26/audio_5b0c7b7c1a.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-const slides=[
-  {icon:"🌹",title:"Happy Rose Day Tanya",text:"You are my most beautiful feeling"},
-  {icon:"❤️",title:"Tanya I Love You",text:"My heart beats only for you"},
-  {icon:"💖",title:"Forever Us",text:"— Yours, Firdos"}
+const texts=[
+  "Tania ❤️",
+  "You are my forever 💖",
+  "Tania Meri Jaan 😘",
+  "Babu ❤️",
+  "Ummaah 😘",
+  "I Love You Forever 💕"
 ];
 
 let i=0;
+const el=document.getElementById("text");
 
-function render(){
-  const s=slides[i];
-  document.getElementById("slide").innerHTML=`
-    <div class="icon">${s.icon}</div>
-    <h1>${s.title}</h1>
-    <p>${s.text}</p>
-  `;
+function changeText(){
+  el.innerText=texts[i];
+  i=(i+1)%texts.length;
 }
 
-function startLove(){
-  document.getElementById("start").style.display="none";
-  document.getElementById("slider").style.display="block";
+changeText();
+setInterval(changeText,1600); // FAST SLIDER
 
-  const music=document.getElementById("music");
-  music.volume=0.75;
-  music.play();
-
-  render();
-  setInterval(()=>{
-    i=(i+1)%slides.length;
-    render();
-  },2200);
-}
+/* FORCE MUSIC AFTER LOAD */
+window.addEventListener("click",()=>{
+  document.getElementById("music").play();
+},{once:true});
 </script>
 
 </body>
