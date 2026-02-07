@@ -25,13 +25,12 @@ body{
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  background:inherit;
-  z-index:5;
+  z-index:10;
 }
 .heart-btn{
   font-size:90px;
   cursor:pointer;
-  animation:pulse 1.3s infinite;
+  animation:pulse 1.2s infinite;
 }
 .start p{
   margin-top:10px;
@@ -65,7 +64,7 @@ body{
   text-align:center;
   opacity:0;
   transform:scale(0.93);
-  transition:all .8s ease; /* faster transition */
+  transition:all .7s ease;
 }
 .slide.active{
   opacity:1;
@@ -110,29 +109,40 @@ body{
   </div>
 </div>
 
-<!-- Background Music -->
-<audio id="music" loop>
+<!-- BACKGROUND MUSIC -->
+<audio id="music" preload="auto" loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-let slides=document.querySelectorAll(".slide");
-let index=0;
+let slides = document.querySelectorAll(".slide");
+let index = 0;
 let interval;
 
 function startLove(){
-  document.getElementById("start").style.display="none";
-  document.getElementById("slider").style.display="block";
+  // hide start
+  document.getElementById("start").style.display = "none";
+  document.getElementById("slider").style.display = "block";
 
-  // Start music (allowed because user clicked)
-  document.getElementById("music").play();
+  // play music (guaranteed after click)
+  const audio = document.getElementById("music");
+  audio.muted = false;
+  audio.volume = 0.7;
+
+  const playPromise = audio.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(err => {
+      console.log("Music blocked, tap again if needed", err);
+      alert("🔊 Tap once more to enable music");
+    });
+  }
 
   // FAST slider (3 seconds)
-  interval=setInterval(()=>{
+  interval = setInterval(() => {
     slides[index].classList.remove("active");
-    index=(index+1)%slides.length;
+    index = (index + 1) % slides.length;
     slides[index].classList.add("active");
-  },3000);
+  }, 3000);
 }
 </script>
 
