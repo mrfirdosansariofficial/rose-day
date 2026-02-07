@@ -8,39 +8,36 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
-/* ===== PINK ROMANTIC BACKGROUND ===== */
 body{
   height:100vh;
-  background:
-    radial-gradient(circle at top, #ffd1dc 0%, #ff9a9e 35%, #ff6a88 70%, #ff4d6d 100%);
   display:flex;
   justify-content:center;
   align-items:center;
-  overflow:hidden;
+  background:
+    radial-gradient(circle at top,#ffd6e0,#ff8fab,#ff4d6d);
   font-family:'Poppins',Arial,sans-serif;
-  color:#fff;
+  overflow:hidden;
 }
 
-/* ===== SOFT LIGHTING / GLOW ===== */
-.glow{
+/* ===== LIGHTING ===== */
+body::before{
+  content:"";
   position:absolute;
   inset:-50%;
-  background:
-    conic-gradient(from 0deg,
-      rgba(255,255,255,.12),
-      rgba(255,77,109,.25),
-      rgba(255,255,255,.12),
-      rgba(255,154,158,.25),
-      rgba(255,255,255,.12));
-  animation:spin 22s linear infinite;
-  filter:blur(40px);
+  background:conic-gradient(
+    from 0deg,
+    rgba(255,255,255,.25),
+    rgba(255,77,109,.45),
+    rgba(255,255,255,.25)
+  );
+  animation:spin 18s linear infinite;
+  filter:blur(60px);
 }
 @keyframes spin{
-  from{transform:rotate(0deg);}
   to{transform:rotate(360deg);}
 }
 
-/* ===== START OVERLAY ===== */
+/* ===== START SCREEN ===== */
 .start{
   position:absolute;
   inset:0;
@@ -48,130 +45,132 @@ body{
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  backdrop-filter:blur(14px);
+  background:rgba(255,255,255,.18);
   z-index:10;
-  backdrop-filter:blur(12px);
-  background:rgba(255,255,255,.15);
 }
-.start-btn{
-  padding:18px 32px;
-  border-radius:999px;
+.start button{
+  border:none;
   cursor:pointer;
-  font-size:1.1rem;
-  letter-spacing:.5px;
+  padding:20px 36px;
+  border-radius:999px;
+  font-size:1.2rem;
   background:linear-gradient(135deg,#ff4d6d,#ff9a9e);
-  box-shadow:
-    0 0 20px rgba(255,77,109,.8),
-    0 0 60px rgba(255,77,109,.6);
-  animation:pulse 1.5s infinite;
+  color:white;
+  box-shadow:0 0 30px #ff4d6d,0 0 80px #ff4d6d;
+  animation:pulse 1.4s infinite;
 }
 @keyframes pulse{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.08);}
-}
-.start small{
-  margin-top:14px;
-  opacity:.85;
+  50%{transform:scale(1.1);}
 }
 
-/* ===== GLASS SLIDER ===== */
+/* ===== SLIDER ===== */
 .slider{
   width:90%;
-  max-width:440px;
-  height:310px;
+  max-width:420px;
+  height:300px;
   position:relative;
   display:none;
-  z-index:5;
 }
+
 .slide{
   position:absolute;
   inset:0;
-  background:rgba(255,255,255,.18);
-  backdrop-filter:blur(24px);
-  border-radius:28px;
+  border-radius:30px;
+  background:
+    linear-gradient(135deg,
+      rgba(255,255,255,.35),
+      rgba(255,255,255,.15));
+  backdrop-filter:blur(25px);
   box-shadow:
-    0 30px 60px rgba(0,0,0,.35),
-    inset 0 0 40px rgba(255,255,255,.18);
+    0 40px 80px rgba(0,0,0,.35),
+    inset 0 0 30px rgba(255,255,255,.35),
+    0 0 35px rgba(255,77,109,.6);
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
   opacity:0;
-  transform:scale(.92);
-  transition:all .8s ease;
+  transform:scale(.9);
+  transition:all .7s ease;
 }
 .slide.active{
   opacity:1;
   transform:scale(1);
 }
 
-/* ===== PREMIUM TEXT ===== */
-.slide h1{
-  font-size:2.4rem;
-  background:linear-gradient(90deg,#ffffff,#ffe6ec,#ffffff);
+/* ===== TEXT ===== */
+h1{
+  font-size:2.2rem;
+  background:linear-gradient(90deg,#fff,#ffe6ec,#fff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  text-shadow:0 0 25px rgba(255,255,255,.6);
+  text-shadow:0 0 25px rgba(255,255,255,.7);
 }
-.slide p{
-  margin-top:14px;
-  font-size:1.25rem;
+p{
+  margin-top:12px;
+  font-size:1.2rem;
   color:#fff;
-  opacity:.95;
+}
+
+/* ===== ICONS ===== */
+.icon{
+  font-size:3rem;
+  margin-bottom:10px;
+  text-shadow:0 0 25px rgba(255,0,70,.8);
 }
 </style>
 </head>
 
 <body>
 
-<div class="glow"></div>
-
 <!-- START -->
 <div class="start" id="start">
-  <div class="start-btn" onclick="startExperience()">❤️ Start with Music</div>
-  <small>For best romantic experience</small>
+  <button onclick="startRomance()">❤️ Tap to Start Love</button>
 </div>
 
 <!-- SLIDER -->
 <div class="slider" id="slider">
   <div class="slide active">
-    <h1>Happy Rose Day 🌹</h1>
+    <div class="icon">🌹</div>
+    <h1>Happy Rose Day</h1>
     <p>My love begins with you</p>
   </div>
   <div class="slide">
-    <h1>Tania ❤️</h1>
-    <p>You are my today & forever</p>
+    <div class="icon">❤️</div>
+    <h1>Tania</h1>
+    <p>You are my forever</p>
   </div>
   <div class="slide">
-    <h1>I Love You 😘</h1>
-    <p>— Firdos Ansari 💕</p>
+    <div class="icon">💖</div>
+    <h1>I Love You</h1>
+    <p>— Firdos Ansari</p>
   </div>
 </div>
 
-<!-- BACKGROUND MUSIC (ARIJIT-STYLE INSTRUMENTAL) -->
-<audio id="music" loop preload="auto">
+<!-- MUSIC -->
+<audio id="music" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/10/26/audio_5b0c7b7c1a.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-let slides = document.querySelectorAll(".slide");
-let index = 0;
+const slides=document.querySelectorAll(".slide");
+let i=0;
 
-function startExperience(){
+function startRomance(){
   document.getElementById("start").style.display="none";
   document.getElementById("slider").style.display="block";
 
-  // Music (allowed after user tap)
-  const audio = document.getElementById("music");
-  audio.volume = 0.7;
-  audio.play();
+  const music=document.getElementById("music");
+  music.volume=0.7;
+  music.play(); // guaranteed after tap
 
-  // Fast romantic slider
   setInterval(()=>{
-    slides[index].classList.remove("active");
-    index = (index + 1) % slides.length;
-    slides[index].classList.add("active");
-  },3000);
+    slides[i].classList.remove("active");
+    i=(i+1)%slides.length;
+    slides[i].classList.add("active");
+  },2500);
 }
 </script>
 
