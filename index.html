@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Tania ❤️ Rose Day</title>
+<title>Tania ❤️ Cinematic Love</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -13,96 +13,119 @@ html,body{
   font-family:'Poppins',Arial,sans-serif;
 }
 
-/* 💗 PINK BACKGROUND */
+/* 🎬 CINEMATIC PINK BACKGROUND */
 body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(180deg,#ffb6c1,#ff69b4,#ff1493);
+  background:
+    radial-gradient(circle at center,#ffb6c1,#ff5c8a,#c2185b);
 }
 
-/* ===== PREMIUM START OVERLAY ===== */
+/* 🎥 VIGNETTE */
+body::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle,transparent 40%,rgba(0,0,0,.35) 100%);
+  pointer-events:none;
+}
+
+/* ✨ FLOATING LIGHTS */
+.light{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:rgba(255,255,255,.7);
+  border-radius:50%;
+  animation:float 8s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(100vh);opacity:0;}
+  20%{opacity:1;}
+  to{transform:translateY(-20vh);opacity:0;}
+}
+
+/* 🎬 START SCREEN */
 .start{
   position:absolute;
   inset:0;
   display:flex;
   justify-content:center;
   align-items:center;
-  backdrop-filter:blur(18px);
-  background:rgba(255,182,193,.35);
+  backdrop-filter:blur(20px);
+  background:rgba(255,182,193,.4);
   z-index:10;
 }
 
-/* 💎 ULTRA PREMIUM BUTTON */
+/* 💎 CINEMATIC BUTTON */
 .start button{
-  position:relative;
   border:none;
-  padding:20px 44px;
-  font-size:1.3rem;
+  padding:22px 50px;
+  font-size:1.35rem;
   font-weight:700;
   border-radius:999px;
   cursor:pointer;
   color:white;
   background:linear-gradient(135deg,#ff1744,#ff69b4);
   box-shadow:
-    0 0 25px rgba(255,23,68,.9),
-    0 0 80px rgba(255,105,180,.9),
-    inset 0 0 20px rgba(255,255,255,.5);
-  animation:heartbeat 1.4s infinite;
+    0 0 40px rgba(255,23,68,1),
+    0 0 120px rgba(255,105,180,.9);
+  animation:heartbeat 1.6s infinite;
+  position:relative;
   overflow:hidden;
 }
-
-/* Shine sweep */
 .start button::after{
   content:"";
   position:absolute;
-  top:-50%;
-  left:-30%;
+  top:-60%;
+  left:-40%;
   width:40%;
-  height:200%;
-  background:linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,.7),
-    transparent
-  );
+  height:220%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.8),transparent);
   transform:rotate(25deg);
-  animation:shine 2.5s infinite;
+  animation:shine 3s infinite;
 }
-
 @keyframes heartbeat{
   0%,100%{transform:scale(1);}
-  50%{transform:scale(1.12);}
+  50%{transform:scale(1.15);}
 }
 @keyframes shine{
-  0%{left:-40%;}
-  100%{left:120%;}
+  0%{left:-50%;}
+  100%{left:130%;}
 }
 
-/* ===== CARD ===== */
+/* 🎞️ GLASS CARD */
 .card{
   width:90%;
   max-width:440px;
-  height:300px;
-  border-radius:32px;
+  height:320px;
+  border-radius:34px;
   background:rgba(255,255,255,.35);
-  backdrop-filter:blur(24px);
-  box-shadow:0 35px 80px rgba(0,0,0,.35);
+  backdrop-filter:blur(26px);
+  box-shadow:
+    0 40px 100px rgba(0,0,0,.45),
+    inset 0 0 40px rgba(255,255,255,.5);
   display:none;
   justify-content:center;
   align-items:center;
   text-align:center;
+  animation:cinematicIn 1.2s ease;
+}
+@keyframes cinematicIn{
+  from{opacity:0;transform:scale(.85);}
+  to{opacity:1;transform:scale(1);}
 }
 
-/* TEXT */
+/* 🤍 TEXT */
 .text{
   color:white;
-  font-size:2.1rem;
+  font-size:2.2rem;
   font-weight:700;
-  text-shadow:0 0 20px rgba(255,255,255,.6);
+  text-shadow:0 0 25px rgba(255,255,255,.7);
 }
 
-/* ORIGINAL EMOJI FIX */
+/* 🌹 ORIGINAL EMOJI */
 .emoji{
   font-family:
     "Apple Color Emoji",
@@ -110,17 +133,17 @@ body{
     "Noto Color Emoji",
     "Android Emoji",
     sans-serif;
-  font-size:2.6rem;
+  font-size:2.8rem;
   display:block;
-  margin-bottom:8px;
+  margin-bottom:10px;
   filter:none!important;
   text-shadow:none!important;
 }
 
-/* SUBTEXT */
+/* SUB */
 .sub{
   margin-top:10px;
-  font-size:1.3rem;
+  font-size:1.35rem;
   color:white;
   opacity:.95;
 }
@@ -129,53 +152,59 @@ body{
 
 <body>
 
-<!-- START -->
+<!-- 🎬 START -->
 <div class="start" id="start">
-  <button onclick="startLove()">💖 Tap to Feel the Music 💖</button>
+  <button onclick="startMovie()">🎬 Start Our Love Story ❤️</button>
 </div>
 
-<!-- CARD -->
+<!-- 🎞️ CARD -->
 <div class="card" id="card">
   <div id="content"></div>
 </div>
 
-<!-- MUSIC -->
+<!-- 🎵 MUSIC -->
 <audio id="music" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/10/26/audio_5b0c7b7c1a.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+/* 🌫️ PARTICLES */
+for(let i=0;i<20;i++){
+  let l=document.createElement("div");
+  l.className="light";
+  l.style.left=Math.random()*100+"vw";
+  l.style.animationDelay=Math.random()*8+"s";
+  document.body.appendChild(l);
+}
+
+/* 🎬 SLIDES */
 const slides=[
   {e:"🌹", t:"Happy Rose Day", s:"Tania ❤️"},
   {e:"❤️", t:"Tania Meri Jaan👩‍❤️‍👨", s:"You are my forever"},
-  {e:"😘", t:"Babu🌻", s:"My heart is yours"},
-  {e:"🌹", t:"Ummaah😘", s:"Love you endlessly"},
+  {e:"😘", t:"Babu🌻", s:"My heart beats for you"},
+  {e:"🌹", t:"Ummaah😘", s:"Every breath loves you"},
   {e:"❤️", t:"I Love You", s:"Forever & Always"}
+  {e:"🤱", t:"Tania Mere Bacche ki Mummy Banogi", s:"on god Zindagi Bhar Bahut Pyaar Karunga👩‍❤️‍👨"}
 ];
 
 let i=0;
 
-function startLove(){
+function startMovie(){
   document.getElementById("start").style.display="none";
   document.getElementById("card").style.display="flex";
 
-  // 🎵 Fade-in Music
+  /* 🎵 FADE-IN MUSIC */
   const audio=document.getElementById("music");
   audio.volume=0;
   audio.play();
-
-  let vol=0;
+  let v=0;
   const fade=setInterval(()=>{
-    if(vol<0.7){
-      vol+=0.02;
-      audio.volume=vol;
-    }else{
-      clearInterval(fade);
-    }
+    if(v<0.75){v+=0.02;audio.volume=v;}
+    else clearInterval(fade);
   },150);
 
   show();
-  setInterval(show,1800);
+  setInterval(show,2000);
 }
 
 function show(){
