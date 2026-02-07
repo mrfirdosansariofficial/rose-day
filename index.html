@@ -2,68 +2,97 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Tania ❤️ Meri Jaan</title>
+<title>Tania ❤️ Rose Day</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 html,body{
   height:100%;
-  overflow:hidden; /* PAGE LOCK */
+  overflow:hidden;
   font-family:'Poppins',Arial,sans-serif;
 }
 
+/* BACKGROUND */
 body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:radial-gradient(circle at top,#ffd1dc,#ff8fab,#ff4d6d);
+  background:radial-gradient(circle at top,#ffe4ec,#ff9fb8,#ff5c8a);
 }
 
-/* GLASS CARD */
+/* START SCREEN */
+.start{
+  position:absolute;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:rgba(255,255,255,.3);
+  backdrop-filter:blur(18px);
+  z-index:10;
+}
+.start button{
+  border:none;
+  padding:18px 38px;
+  font-size:1.25rem;
+  font-weight:600;
+  border-radius:999px;
+  cursor:pointer;
+  color:white;
+  background:linear-gradient(135deg,#ff1744,#ff80ab);
+  box-shadow:
+    0 0 30px #ff1744,
+    0 0 80px #ff80ab;
+  animation:pulse 1.4s infinite;
+}
+@keyframes pulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+}
+
+/* CARD */
 .card{
   width:90%;
-  max-width:420px;
+  max-width:440px;
   height:300px;
-  border-radius:30px;
+  border-radius:32px;
   background:linear-gradient(
     135deg,
-    rgba(255,255,255,.35),
-    rgba(255,255,255,.12)
+    rgba(255,255,255,.55),
+    rgba(255,255,255,.2)
   );
-  backdrop-filter:blur(25px);
+  backdrop-filter:blur(26px);
   box-shadow:
-    0 30px 80px rgba(0,0,0,.35),
-    inset 0 0 30px rgba(255,255,255,.4);
-  display:flex;
+    0 35px 80px rgba(0,0,0,.35),
+    inset 0 0 35px rgba(255,255,255,.5);
+  display:none;
   justify-content:center;
   align-items:center;
   text-align:center;
 }
 
 /* TEXT */
-.text{
-  font-size:2.2rem;
+.title{
+  font-size:2.3rem;
   font-weight:700;
-  background:linear-gradient(
-    90deg,
-    #7b1fa2,
-    #c2185b,
-    #880e4f
-  );
+  background:linear-gradient(90deg,#6a1b9a,#d81b60,#ff4081);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  text-shadow:0 0 18px rgba(123,31,162,.6);
-  animation:fade 0.6s ease;
+  text-shadow:0 0 22px rgba(255,64,129,.7);
 }
-
+.subtitle{
+  margin-top:12px;
+  font-size:1.25rem;
+  color:#7b1fa2;
+  opacity:.95;
+}
+.fade{
+  animation:fade .6s ease;
+}
 @keyframes fade{
-  from{opacity:0;transform:scale(.9);}
+  from{opacity:0;transform:scale(.92);}
   to{opacity:1;transform:scale(1);}
 }
 </style>
@@ -71,40 +100,60 @@ body{
 
 <body>
 
-<div class="card">
-  <div class="text" id="text"></div>
+<!-- START BUTTON -->
+<div class="start" id="start">
+  <button onclick="startLove()">💖 Click to Start Love 💖</button>
 </div>
 
-<!-- BACKGROUND MUSIC -->
-<audio id="music" autoplay loop>
+<!-- CARD -->
+<div class="card" id="card">
+  <div id="content">
+    <div class="title">🌹 Happy Rose Day 🌹</div>
+    <div class="subtitle">Tania ❤️</div>
+  </div>
+</div>
+
+<!-- MUSIC -->
+<audio id="music" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/10/26/audio_5b0c7b7c1a.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-const texts=[
-  "Tania ❤️",
-  "You are my forever 💖",
-  "Tania Meri Jaan 😘",
-  "Babu ❤️",
-  "Ummaah 😘",
-  "I Love You Forever 💕"
+const slides=[
+  {t:"🌹 Happy Rose Day 🌹", s:"Tania ❤️"},
+  {t:"Tania Meri Jaan 😘", s:"You are my forever 💖"},
+  {t:"Babu ❤️", s:"My heart belongs to you"},
+  {t:"Ummaah 😘", s:"Love you more everyday 🌹"},
+  {t:"I Love You ❤️", s:"Forever & Always 💕"}
 ];
 
 let i=0;
-const el=document.getElementById("text");
 
-function changeText(){
-  el.innerText=texts[i];
-  i=(i+1)%texts.length;
+function startLove(){
+  document.getElementById("start").style.display="none";
+  document.getElementById("card").style.display="flex";
+
+  // start music
+  const audio=document.getElementById("music");
+  audio.volume=0.75;
+  audio.play();
+
+  changeText();
+  setInterval(changeText,2000); // FAST & SMOOTH
 }
 
-changeText();
-setInterval(changeText,1600); // FAST SLIDER
+function changeText(){
+  const c=document.getElementById("content");
+  c.classList.remove("fade");
+  void c.offsetWidth;
+  c.classList.add("fade");
 
-/* FORCE MUSIC AFTER LOAD */
-window.addEventListener("click",()=>{
-  document.getElementById("music").play();
-},{once:true});
+  c.innerHTML=`
+    <div class="title">${slides[i].t}</div>
+    <div class="subtitle">${slides[i].s}</div>
+  `;
+  i=(i+1)%slides.length;
+}
 </script>
 
 </body>
