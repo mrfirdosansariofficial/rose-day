@@ -13,50 +13,80 @@ html,body{
   font-family:'Poppins',Arial,sans-serif;
 }
 
-/* 🌸 PURE PINK ROMANTIC BACKGROUND */
+/* 💗 PINK BACKGROUND */
 body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(
-    180deg,
-    #ffb6c1 0%,
-    #ff69b4 50%,
-    #ff1493 100%
-  );
+  background:linear-gradient(180deg,#ffb6c1,#ff69b4,#ff1493);
 }
 
-/* START BUTTON */
+/* ===== PREMIUM START OVERLAY ===== */
 .start{
   position:absolute;
   inset:0;
   display:flex;
   justify-content:center;
   align-items:center;
+  backdrop-filter:blur(18px);
   background:rgba(255,182,193,.35);
-  backdrop-filter:blur(14px);
   z-index:10;
 }
+
+/* 💎 ULTRA PREMIUM BUTTON */
 .start button{
+  position:relative;
   border:none;
-  padding:18px 38px;
-  font-size:1.25rem;
-  font-weight:600;
+  padding:20px 44px;
+  font-size:1.3rem;
+  font-weight:700;
   border-radius:999px;
   cursor:pointer;
   color:white;
   background:linear-gradient(135deg,#ff1744,#ff69b4);
-  box-shadow:0 0 30px #ff1744,0 0 80px #ff69b4;
+  box-shadow:
+    0 0 25px rgba(255,23,68,.9),
+    0 0 80px rgba(255,105,180,.9),
+    inset 0 0 20px rgba(255,255,255,.5);
+  animation:heartbeat 1.4s infinite;
+  overflow:hidden;
 }
 
-/* CARD */
+/* Shine sweep */
+.start button::after{
+  content:"";
+  position:absolute;
+  top:-50%;
+  left:-30%;
+  width:40%;
+  height:200%;
+  background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.7),
+    transparent
+  );
+  transform:rotate(25deg);
+  animation:shine 2.5s infinite;
+}
+
+@keyframes heartbeat{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.12);}
+}
+@keyframes shine{
+  0%{left:-40%;}
+  100%{left:120%;}
+}
+
+/* ===== CARD ===== */
 .card{
   width:90%;
   max-width:440px;
   height:300px;
   border-radius:32px;
   background:rgba(255,255,255,.35);
-  backdrop-filter:blur(22px);
+  backdrop-filter:blur(24px);
   box-shadow:0 35px 80px rgba(0,0,0,.35);
   display:none;
   justify-content:center;
@@ -81,11 +111,10 @@ body{
     "Android Emoji",
     sans-serif;
   font-size:2.6rem;
-  line-height:1.2;
   display:block;
   margin-bottom:8px;
-  filter:none !important;
-  text-shadow:none !important;
+  filter:none!important;
+  text-shadow:none!important;
 }
 
 /* SUBTEXT */
@@ -102,7 +131,7 @@ body{
 
 <!-- START -->
 <div class="start" id="start">
-  <button onclick="startLove()">❤️ Click to Start ❤️</button>
+  <button onclick="startLove()">💖 Tap to Feel the Music 💖</button>
 </div>
 
 <!-- CARD -->
@@ -112,14 +141,14 @@ body{
 
 <!-- MUSIC -->
 <audio id="music" loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/10/26/audio_5b0c7b7c1a.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2022/10/26/audio_5b0c7b7c1a.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 const slides=[
   {e:"🌹", t:"Happy Rose Day", s:"Tania ❤️"},
   {e:"❤️", t:"Tania Meri Jaan👩‍❤️‍👨", s:"You are my forever"},
-  {e:"😘", t:"Babu", s:"My heart is yours"},
+  {e:"😘", t:"Babu🌻", s:"My heart is yours"},
   {e:"🌹", t:"Ummaah😘", s:"Love you endlessly"},
   {e:"❤️", t:"I Love You", s:"Forever & Always"}
 ];
@@ -130,9 +159,20 @@ function startLove(){
   document.getElementById("start").style.display="none";
   document.getElementById("card").style.display="flex";
 
+  // 🎵 Fade-in Music
   const audio=document.getElementById("music");
-  audio.volume=0.75;
+  audio.volume=0;
   audio.play();
+
+  let vol=0;
+  const fade=setInterval(()=>{
+    if(vol<0.7){
+      vol+=0.02;
+      audio.volume=vol;
+    }else{
+      clearInterval(fade);
+    }
+  },150);
 
   show();
   setInterval(show,1800);
