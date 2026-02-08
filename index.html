@@ -142,16 +142,16 @@ body{
   </div>
 </div>
 
-<!-- 🎵 MUSIC -->
+<!-- 🎵 EMOTIONAL MUSIC -->
 <audio id="music" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/10/26/audio_5b0c7b7c1a.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2023/05/16/audio_8c2e9d7c65.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 /* 🔐 PASSWORD */
 const PASSWORD = "Tania";
 
-/* 💖 SLIDES (PROPOSAL + FINAL BABY QUESTION) */
+/* 💖 SLIDES */
 const slides = [
   {e:"🌹", t:"Advance Happy Valentine’s Day", s:"Tania ❤️"},
   {e:"❤️", t:"Tania Meri Jaan 👩‍❤️‍👨", s:"You are my forever"},
@@ -182,22 +182,31 @@ function startExperience(){
 
   startMusic();
   startPetals();
-  showSlide();
-  slideTimer = setInterval(showSlide, 4500);
+  playSlides();
 }
 
-/* SLIDE LOGIC */
+/* 🎞️ SLIDER WITH 15s PAUSE ON LAST */
+function playSlides(){
+  showSlide();
+
+  slideTimer = setInterval(()=>{
+    if(index === slides.length - 1){
+      clearInterval(slideTimer);
+      setTimeout(()=>{
+        index = 0;
+        playSlides(); // 🔁 restart slider
+      },15000); // ⏸️ 15 sec pause
+    }else{
+      index++;
+      showSlide();
+    }
+  },4500);
+}
+
 function showSlide(){
   document.getElementById("emoji").innerText = slides[index].e;
   document.getElementById("text").innerText  = slides[index].t;
   document.getElementById("sub").innerText   = slides[index].s;
-
-  // Pause on last emotional slide
-  if(index === slides.length - 1){
-    clearInterval(slideTimer);
-  }else{
-    index++;
-  }
 }
 
 /* 🎵 MUSIC FADE-IN */
@@ -206,7 +215,12 @@ function startMusic(){
   audio.volume = 0;
   audio.play();
   let v = 0;
-  setInterval(()=>{ if(v < 0.7){ v += 0.03; audio.volume = v; } },200);
+  setInterval(()=>{
+    if(v < 0.75){
+      v += 0.025;
+      audio.volume = v;
+    }
+  },200);
 }
 
 /* 🌹 ROSE PETALS */
