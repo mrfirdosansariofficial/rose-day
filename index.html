@@ -15,7 +15,7 @@ body{
  background:linear-gradient(180deg,#ffb6c1,#ff69b4,#c2185b);
 }
 
-/* ROSE PETALS */
+/* 🌹 ROSE PETALS */
 .petal{
  position:fixed;top:-10%;font-size:22px;
  animation:fall linear infinite;pointer-events:none
@@ -24,17 +24,29 @@ body{
  to{transform:translateY(110vh) rotate(360deg);opacity:0}
 }
 
-/* FIREWORKS */
-.firework{
- position:fixed;width:6px;height:6px;border-radius:50%;
- animation:boom 1.5s ease-out forwards
+/* 🚀 ROCKET */
+.rocket{
+ position:fixed;
+ bottom:-40px;
+ font-size:26px;
+ animation:launch 1.6s ease-out forwards;
 }
-@keyframes boom{
- from{transform:scale(0);opacity:1}
- to{transform:scale(6);opacity:0}
+@keyframes launch{
+ to{transform:translateY(-120vh);opacity:0}
 }
 
-/* LOCK */
+/* 🎈 BALLOON */
+.balloon{
+ position:fixed;
+ bottom:-60px;
+ font-size:30px;
+ animation:float 6s linear forwards;
+}
+@keyframes float{
+ to{transform:translateY(-130vh);opacity:0}
+}
+
+/* 🔐 LOCK */
 .lock{
  position:absolute;inset:0;display:flex;flex-direction:column;
  justify-content:center;align-items:center;
@@ -68,7 +80,7 @@ body{
 
 /* CARD */
 .card{
- width:90%;max-width:460px;height:360px;
+ width:90%;max-width:460px;height:380px;
  background:rgba(255,255,255,.25);
  border-radius:30px;display:none;
  justify-content:center;align-items:center;text-align:center;z-index:5
@@ -128,7 +140,7 @@ body{
 <script>
 const PASSWORD="Tania";
 
-/* 💖 SLIDES (PROPOSAL LAST) */
+/* SLIDES (PROPOSAL LAST) */
 const slides=[
  {e:"🌹",t:"Advance Happy Valentine’s Day",s:"Tania ❤️"},
  {e:"❤️",t:"Tania Meri Jaan 👩‍❤️‍👨",s:"You are my forever"},
@@ -148,7 +160,7 @@ function checkPassword(){
  }else error.style.display="block";
 }
 
-/* START EXPERIENCE */
+/* START */
 function startExperience(){
  start.style.display="none";
  card.style.display="flex";
@@ -165,24 +177,19 @@ function startExperience(){
 /* SLIDER */
 function runSlider(){
  if(paused) return;
-
  showSlide();
  clearTimeout(timer);
-
  const last=i===slides.length-1;
- const delay= last?8000:3500;
-
  timer=setTimeout(()=>{
-  i= last?0:i+1;
+  i=last?0:i+1;
   runSlider();
- },delay);
+ }, last?8000:3500);
 }
 
 function showSlide(){
  emoji.innerText=slides[i].e;
  text.innerText=slides[i].t;
  sub.innerText=slides[i].s;
-
  acceptBtn.style.display = slides[i].e==="💍" ? "inline-block":"none";
 }
 
@@ -192,7 +199,7 @@ function toggleMusic(){
  (music.pause(),musicBtn.innerText="▶️ Music");
 }
 
-/* ROSE PETALS */
+/* 🌹 PETALS */
 function startPetals(){
  setInterval(()=>{
   const p=document.createElement("div");
@@ -204,25 +211,35 @@ function startPetals(){
  },600);
 }
 
-/* 🎆🎇 ACCEPT CELEBRATION */
+/* 🎆🚀🎈 ACCEPT CELEBRATION */
 function acceptProposal(){
  acceptBtn.style.display="none";
  paused=true;
 
- for(let k=0;k<80;k++){
-  const f=document.createElement("div");
-  f.className="firework";
-  f.style.left=Math.random()*100+"vw";
-  f.style.top=Math.random()*100+"vh";
-  f.style.background=`hsl(${Math.random()*360},100%,60%)`;
-  document.body.appendChild(f);
-  setTimeout(()=>f.remove(),1500);
+ // 🚀 Rockets
+ for(let r=0;r<40;r++){
+  const rocket=document.createElement("div");
+  rocket.className="rocket";
+  rocket.innerText="🚀";
+  rocket.style.left=Math.random()*100+"vw";
+  document.body.appendChild(rocket);
+  setTimeout(()=>rocket.remove(),1600);
+ }
+
+ // 🎈 Balloons
+ for(let b=0;b<30;b++){
+  const balloon=document.createElement("div");
+  balloon.className="balloon";
+  balloon.innerText="🎈";
+  balloon.style.left=Math.random()*100+"vw";
+  document.body.appendChild(balloon);
+  setTimeout(()=>balloon.remove(),6000);
  }
 
  setTimeout(()=>{
   paused=false;
   runSlider();
- },6000); // ⏸️ HOLD 6 SEC
+ },6000);
 }
 </script>
 
