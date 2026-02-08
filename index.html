@@ -88,8 +88,8 @@ body{
 /* 💖 MAIN CARD */
 .card{
   width:90%;
-  max-width:440px;
-  height:300px;
+  max-width:460px;
+  height:320px;
   background:rgba(255,255,255,.25);
   border-radius:30px;
   display:none;
@@ -105,14 +105,15 @@ body{
   font-size:2.8rem;
 }
 .text{
-  font-size:2.1rem;
+  font-size:2rem;
   color:white;
   margin-top:10px;
 }
 .sub{
-  font-size:1.25rem;
+  font-size:1.2rem;
   color:white;
-  margin-top:8px;
+  margin-top:10px;
+  line-height:1.4;
 }
 </style>
 </head>
@@ -150,13 +151,14 @@ body{
 /* 🔐 PASSWORD */
 const PASSWORD = "Tania";
 
-/* 💖 SLIDES (LAST = PROPOSAL) */
+/* 💖 SLIDES (PROPOSAL + FINAL BABY QUESTION) */
 const slides = [
   {e:"🌹", t:"Advance Happy Valentine’s Day", s:"Tania ❤️"},
   {e:"❤️", t:"Tania Meri Jaan 👩‍❤️‍👨", s:"You are my forever"},
   {e:"😘", t:"Babu 🌻", s:"My heart beats for you"},
   {e:"🌹", t:"Ummaah 😘", s:"Every breath loves you"},
-  {e:"💍", t:"Will You Marry Me?", s:"Tania 💖 Forever With Me"}
+  {e:"💍", t:"Will You Marry Me?", s:"Tania 💖 Forever With Me"},
+  {e:"🤱", t:"Tania kya tum mere hone wale bacchon 👼 ki Ammi banogi?", s:"Main tumse zindagi bhar bahut pyaar karunga ❤️"}
 ];
 
 let index = 0;
@@ -181,17 +183,18 @@ function startExperience(){
   startMusic();
   startPetals();
   showSlide();
-  slideTimer = setInterval(showSlide, 4000);
+  slideTimer = setInterval(showSlide, 4500);
 }
 
-/* SLIDES */
+/* SLIDE LOGIC */
 function showSlide(){
   document.getElementById("emoji").innerText = slides[index].e;
   document.getElementById("text").innerText  = slides[index].t;
   document.getElementById("sub").innerText   = slides[index].s;
 
+  // Pause on last emotional slide
   if(index === slides.length - 1){
-    clearInterval(slideTimer); // pause on proposal
+    clearInterval(slideTimer);
   }else{
     index++;
   }
