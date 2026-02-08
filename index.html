@@ -13,7 +13,7 @@ html,body{
   font-family:Arial, sans-serif;
 }
 
-/* 💗 PINK BACKGROUND */
+/* 💗 BACKGROUND */
 body{
   display:flex;
   justify-content:center;
@@ -31,6 +31,19 @@ body{
 }
 @keyframes fall{
   to{transform:translateY(110vh) rotate(360deg);opacity:0;}
+}
+
+/* 🎆 FIREWORKS */
+.firework{
+  position:fixed;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  animation:explode 1.2s ease-out forwards;
+}
+@keyframes explode{
+  from{transform:scale(0);opacity:1;}
+  to{transform:scale(4);opacity:0;}
 }
 
 /* 🔐 PASSWORD SCREEN */
@@ -53,17 +66,23 @@ body{
   text-align:center;
 }
 
-/* ✅ PINK LOCK BUTTON (FIXED) */
+/* 🟠🔵 UNLOCK BUTTON (DUAL COLOR) */
 .lock button{
   margin-top:12px;
-  padding:12px 30px;
+  padding:12px 34px;
   border:none;
-  border-radius:30px;
-  background:linear-gradient(135deg,#ff5f9e,#ff2f92);
+  border-radius:40px;
+  background:linear-gradient(135deg,#ff9800,#ff5722); /* ORANGE */
   color:white;
   font-size:1rem;
   cursor:pointer;
+  transition:all .25s ease;
 }
+.lock button:active{
+  background:linear-gradient(135deg,#0d47a1,#1a237e); /* DARK BLUE */
+  transform:scale(.96);
+}
+
 .lock .error{margin-top:10px;color:white;display:none;}
 
 /* ▶️ START */
@@ -90,7 +109,7 @@ body{
 .card{
   width:90%;
   max-width:460px;
-  height:340px;
+  height:360px;
   background:rgba(255,255,255,.25);
   border-radius:30px;
   display:none;
@@ -119,15 +138,26 @@ body{
 
 /* 🎵 MUSIC BUTTON */
 .music-btn{
-  margin-top:16px;
+  margin-top:14px;
   padding:8px 22px;
   border:none;
   border-radius:30px;
   background:rgba(255,255,255,.25);
   color:white;
-  font-size:.95rem;
   cursor:pointer;
-  backdrop-filter:blur(6px);
+}
+
+/* 💍 ACCEPT BUTTON */
+.accept-btn{
+  margin-top:16px;
+  padding:10px 26px;
+  border:none;
+  border-radius:40px;
+  background:linear-gradient(135deg,#ff1744,#ff69b4);
+  color:white;
+  font-size:1rem;
+  cursor:pointer;
+  display:none;
 }
 </style>
 </head>
@@ -153,115 +183,88 @@ body{
     <div class="emoji" id="emoji">🌹</div>
     <div class="text" id="text"></div>
     <div class="sub" id="sub"></div>
+
     <button class="music-btn" id="musicBtn" onclick="toggleMusic()">⏸️ Music</button>
+    <button class="accept-btn" id="acceptBtn" onclick="acceptProposal()">💖 YES, I ACCEPT 💖</button>
   </div>
 </div>
 
-<!-- 🎵 BACKGROUND MUSIC -->
+<!-- 🎵 MUSIC -->
 <audio id="music" loop preload="auto">
   <source src="https://cdn.pixabay.com/download/audio/2023/05/16/audio_8c2e9d7c65.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* 🔐 PASSWORD */
-const PASSWORD = "Tania";
+const PASSWORD="Tania";
 
-/* 💖 SLIDES */
-const slides = [
-  {e:"🌹", t:"Advance Happy Valentine’s Day", s:"Tania ❤️"},
-  {e:"❤️", t:"Tania Meri Jaan 👩‍❤️‍👨", s:"You are my forever"},
-  {e:"😘", t:"Babu 🌻", s:"My heart beats for you"},
-  {e:"🌹", t:"Ummaah 😘", s:"Every breath loves you"},
-  {e:"💍", t:"Will You Marry Me?", s:"Tania 💖 Forever With Me"},
-  {e:"🤱", t:"Tania kya tum mere hone wale bacchon 👼 ki Ammi banogi?", s:"Main tumse zindagi bhar bahut pyaar karunga ❤️"}
+const slides=[
+ {e:"🌹",t:"Advance Happy Valentine’s Day",s:"Tania ❤️"},
+ {e:"❤️",t:"Tania Meri Jaan 👩‍❤️‍👨",s:"You are my forever"},
+ {e:"😘",t:"Babu 🌻",s:"My heart beats for you"},
+ {e:"🌹",t:"Ummaah 😘",s:"Every breath loves you"},
+ {e:"💍",t:"Will You Marry Me?",s:"Tania 💖 Forever With Me"},
+ {e:"🤱",t:"Tania kya tum mere hone wale bacchon 👼 ki Ammi banogi?",s:"Main tumse zindagi bhar bahut pyaar karunga ❤️"}
 ];
 
-let index = 0;
-let timer = null;
+let index=0,timer=null;
 
-/* PASSWORD CHECK */
 function checkPassword(){
-  if(document.getElementById("password").value === PASSWORD){
-    document.getElementById("lock").style.display="none";
-    document.getElementById("start").style.display="flex";
-    setTimeout(()=>location.reload(),300000);
-  }else{
-    document.getElementById("error").style.display="block";
-  }
+ if(password.value===PASSWORD){
+  lock.style.display="none";
+  start.style.display="flex";
+  setTimeout(()=>location.reload(),300000);
+ }else error.style.display="block";
 }
 
-/* ▶️ START EXPERIENCE (🔥 MUSIC FIX HERE) */
 function startExperience(){
-  document.getElementById("start").style.display="none";
-  document.getElementById("card").style.display="flex";
-
-  // 🔥 GUARANTEED MUSIC START
-  const audio = document.getElementById("music");
-  audio.volume = 0;
-  audio.play(); // 👈 direct user gesture
-  fadeInMusic(audio);
-
-  startPetals();
-  runSlider();
+ start.style.display="none";
+ card.style.display="flex";
+ startMusic(); startPetals(); runSlider();
 }
 
-/* 🎵 FADE-IN */
-function fadeInMusic(audio){
-  let v = 0;
-  const fade = setInterval(()=>{
-    if(v < 0.75){
-      v += 0.03;
-      audio.volume = v;
-    }else{
-      clearInterval(fade);
-    }
-  },200);
-}
-
-/* 🎵 PLAY / PAUSE */
-function toggleMusic(){
-  const audio = document.getElementById("music");
-  const btn = document.getElementById("musicBtn");
-  if(audio.paused){
-    audio.play();
-    btn.innerText = "⏸️ Music";
-  }else{
-    audio.pause();
-    btn.innerText = "▶️ Music";
-  }
-}
-
-/* 🔁 SLIDER */
 function runSlider(){
-  showSlide();
-  clearTimeout(timer);
-
-  const isLast = index === slides.length - 1;
-  const delay = isLast ? 8000 : 3500;
-
-  timer = setTimeout(()=>{
-    index = isLast ? 0 : index + 1;
-    runSlider();
-  }, delay);
+ showSlide(); clearTimeout(timer);
+ const last=index===slides.length-1;
+ timer=setTimeout(()=>{index=last?0:index+1;runSlider();}, last?8000:3500);
 }
 
 function showSlide(){
-  document.getElementById("emoji").innerText = slides[index].e;
-  document.getElementById("text").innerText  = slides[index].t;
-  document.getElementById("sub").innerText   = slides[index].s;
+ emoji.innerText=slides[index].e;
+ text.innerText=slides[index].t;
+ sub.innerText=slides[index].s;
+ acceptBtn.style.display=slides[index].e==="💍"?"inline-block":"none";
 }
 
-/* 🌹 ROSE PETALS */
+function startMusic(){
+ music.volume=0; music.play();
+ let v=0; const f=setInterval(()=>{if(v<.75){v+=.03;music.volume=v}else clearInterval(f)},200);
+}
+function toggleMusic(){
+ music.paused?(music.play(),musicBtn.innerText="⏸️ Music"):(music.pause(),musicBtn.innerText="▶️ Music");
+}
+
 function startPetals(){
-  setInterval(()=>{
-    const p = document.createElement("div");
-    p.className = "petal";
-    p.innerText = "🌹";
-    p.style.left = Math.random()*100 + "vw";
-    p.style.animationDuration = 5 + Math.random()*5 + "s";
-    document.body.appendChild(p);
-    setTimeout(()=>p.remove(),10000);
-  },600);
+ setInterval(()=>{
+  const p=document.createElement("div");
+  p.className="petal"; p.innerText="🌹";
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDuration=5+Math.random()*5+"s";
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),10000);
+ },600);
+}
+
+function acceptProposal(){
+ acceptBtn.style.display="none";
+ for(let i=0;i<25;i++){
+  const f=document.createElement("div");
+  f.className="firework";
+  f.style.left=Math.random()*100+"vw";
+  f.style.top=Math.random()*100+"vh";
+  f.style.background=`hsl(${Math.random()*360},100%,60%)`;
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),1200);
+ }
 }
 </script>
 
