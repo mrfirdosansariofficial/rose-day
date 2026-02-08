@@ -7,191 +7,122 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-html,body{
-  height:100%;
-  overflow:hidden;
-  font-family:Arial, sans-serif;
-}
+html,body{height:100%;overflow:hidden;font-family:Arial,sans-serif}
 
-/* 💗 BACKGROUND */
+/* BACKGROUND */
 body{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(180deg,#ffb6c1,#ff69b4,#c2185b);
+ display:flex;justify-content:center;align-items:center;
+ background:linear-gradient(180deg,#ffb6c1,#ff69b4,#c2185b);
 }
 
-/* 🌹 ROSE PETALS */
+/* ROSE PETALS */
 .petal{
-  position:fixed;
-  top:-10%;
-  font-size:22px;
-  pointer-events:none;
-  animation:fall linear infinite;
+ position:fixed;top:-10%;font-size:22px;
+ animation:fall linear infinite;pointer-events:none
 }
 @keyframes fall{
-  to{transform:translateY(110vh) rotate(360deg);opacity:0;}
+ to{transform:translateY(110vh) rotate(360deg);opacity:0}
 }
 
-/* 🎆 FIREWORKS */
+/* FIREWORKS */
 .firework{
-  position:fixed;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  animation:explode 1.2s ease-out forwards;
+ position:fixed;width:6px;height:6px;border-radius:50%;
+ animation:boom 1.4s ease-out forwards
 }
-@keyframes explode{
-  from{transform:scale(0);opacity:1;}
-  to{transform:scale(4);opacity:0;}
+@keyframes boom{
+ from{transform:scale(0);opacity:1}
+ to{transform:scale(5);opacity:0}
 }
 
-/* 🔐 PASSWORD SCREEN */
+/* LOCK */
 .lock{
-  position:absolute;
-  inset:0;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  background:rgba(255,105,180,.45);
-  z-index:20;
+ position:absolute;inset:0;display:flex;flex-direction:column;
+ justify-content:center;align-items:center;
+ background:rgba(255,105,180,.45);z-index:20
 }
-.lock h2{color:white;margin-bottom:12px;}
+.lock h2{color:#fff;margin-bottom:10px}
 .lock input{
-  padding:12px 18px;
-  border-radius:30px;
-  border:none;
-  outline:none;
-  text-align:center;
+ padding:12px 18px;border-radius:30px;border:none;text-align:center
 }
-
-/* 🟠🔵 UNLOCK BUTTON (DUAL COLOR) */
 .lock button{
-  margin-top:12px;
-  padding:12px 34px;
-  border:none;
-  border-radius:40px;
-  background:linear-gradient(135deg,#ff9800,#ff5722); /* ORANGE */
-  color:white;
-  font-size:1rem;
-  cursor:pointer;
-  transition:all .25s ease;
+ margin-top:12px;padding:12px 34px;border:none;border-radius:40px;
+ background:linear-gradient(135deg,#ff9800,#ff5722);
+ color:#fff;font-size:1rem;cursor:pointer
 }
 .lock button:active{
-  background:linear-gradient(135deg,#0d47a1,#1a237e); /* DARK BLUE */
-  transform:scale(.96);
+ background:linear-gradient(135deg,#0d47a1,#1a237e);
+ transform:scale(.96)
 }
+.lock .error{color:#fff;margin-top:10px;display:none}
 
-.lock .error{margin-top:10px;color:white;display:none;}
-
-/* ▶️ START */
+/* START */
 .start{
-  position:absolute;
-  inset:0;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  background:rgba(255,182,193,.4);
-  z-index:15;
+ position:absolute;inset:0;display:none;justify-content:center;align-items:center;
+ background:rgba(255,182,193,.4);z-index:15
 }
 .start button{
-  padding:20px 44px;
-  font-size:1.3rem;
-  border:none;
-  border-radius:60px;
-  background:linear-gradient(135deg,#ff1744,#ff69b4);
-  color:white;
-  cursor:pointer;
+ padding:20px 44px;font-size:1.3rem;border:none;border-radius:60px;
+ background:linear-gradient(135deg,#ff1744,#ff69b4);
+ color:#fff;cursor:pointer
 }
 
-/* 💖 CARD */
+/* CARD */
 .card{
-  width:90%;
-  max-width:460px;
-  height:360px;
-  background:rgba(255,255,255,.25);
-  border-radius:30px;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  z-index:5;
+ width:90%;max-width:460px;height:360px;
+ background:rgba(255,255,255,.25);
+ border-radius:30px;display:none;
+ justify-content:center;align-items:center;text-align:center;z-index:5
 }
 
-/* TEXT */
 .emoji{
-  font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji","Android Emoji",sans-serif;
-  font-size:2.8rem;
+ font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji","Android Emoji";
+ font-size:2.8rem
 }
-.text{
-  font-size:2rem;
-  color:white;
-  margin-top:10px;
-}
-.sub{
-  font-size:1.2rem;
-  color:white;
-  margin-top:10px;
-  line-height:1.4;
-}
+.text{font-size:2rem;color:#fff;margin-top:10px}
+.sub{font-size:1.2rem;color:#fff;margin-top:10px;line-height:1.4}
 
-/* 🎵 MUSIC BUTTON */
-.music-btn{
-  margin-top:14px;
-  padding:8px 22px;
-  border:none;
-  border-radius:30px;
-  background:rgba(255,255,255,.25);
-  color:white;
-  cursor:pointer;
+/* BUTTONS */
+.music-btn,.accept-btn{
+ margin-top:14px;padding:10px 26px;border:none;border-radius:40px;
+ background:linear-gradient(135deg,#ff1744,#ff69b4);
+ color:#fff;font-size:1rem;cursor:pointer
 }
-
-/* 💍 ACCEPT BUTTON */
-.accept-btn{
-  margin-top:16px;
-  padding:10px 26px;
-  border:none;
-  border-radius:40px;
-  background:linear-gradient(135deg,#ff1744,#ff69b4);
-  color:white;
-  font-size:1rem;
-  cursor:pointer;
-  display:none;
-}
+.accept-btn{display:none}
 </style>
 </head>
 
 <body>
 
-<!-- 🔐 PASSWORD -->
+<!-- LOCK -->
 <div class="lock" id="lock">
-  <h2>🔐 Enter Password</h2>
-  <input type="password" id="password" placeholder="Password">
-  <button onclick="checkPassword()">Unlock ❤️</button>
-  <div class="error" id="error">❌ Wrong password</div>
+ <h2>🔐 Enter Password</h2>
+ <input type="password" id="password" placeholder="Password">
+ <button onclick="checkPassword()">Unlock ❤️</button>
+ <div class="error" id="error">❌ Wrong password</div>
 </div>
 
-<!-- ▶️ START -->
+<!-- START -->
 <div class="start" id="start">
-  <button onclick="startExperience()">💖 Start Our Love Story 💖</button>
+ <button onclick="startExperience()">💖 Start Our Love Story 💖</button>
 </div>
 
-<!-- 💌 CARD -->
+<!-- CARD -->
 <div class="card" id="card">
-  <div>
-    <div class="emoji" id="emoji">🌹</div>
-    <div class="text" id="text"></div>
-    <div class="sub" id="sub"></div>
+ <div>
+  <div class="emoji" id="emoji">🌹</div>
+  <div class="text" id="text"></div>
+  <div class="sub" id="sub"></div>
 
-    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">⏸️ Music</button>
-    <button class="accept-btn" id="acceptBtn" onclick="acceptProposal()">💖 YES, I ACCEPT 💖</button>
-  </div>
+  <button class="music-btn" onclick="toggleMusic()" id="musicBtn">⏸️ Music</button>
+  <button class="accept-btn" onclick="acceptProposal()" id="acceptBtn">
+    💖 YES, I ACCEPT 💖
+  </button>
+ </div>
 </div>
 
-<!-- 🎵 MUSIC -->
-<audio id="music" loop preload="auto">
-  <source src="https://cdn.pixabay.com/download/audio/2023/05/16/audio_8c2e9d7c65.mp3" type="audio/mpeg">
+<!-- MUSIC -->
+<audio id="music" preload="auto" loop>
+ <source src="https://cdn.pixabay.com/download/audio/2023/05/16/audio_8c2e9d7c65.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -203,50 +134,66 @@ const slides=[
  {e:"😘",t:"Babu 🌻",s:"My heart beats for you"},
  {e:"🌹",t:"Ummaah 😘",s:"Every breath loves you"},
  {e:"💍",t:"Will You Marry Me?",s:"Tania 💖 Forever With Me"},
- {e:"🤱",t:"Tania kya tum mere hone wale bacchon 👼 ki Ammi banogi?",s:"Main tumse zindagi bhar bahut pyaar karunga ❤️"}
+ {e:"🤱",t:"Tania kya tum mere hone wale bacchon 👼 ki Ammi banogi?",
+  s:"Main tumse zindagi bhar bahut pyaar karunga ❤️"}
 ];
 
-let index=0,timer=null;
+let i=0,timer;
 
+/* PASSWORD */
 function checkPassword(){
  if(password.value===PASSWORD){
   lock.style.display="none";
   start.style.display="flex";
-  setTimeout(()=>location.reload(),300000);
  }else error.style.display="block";
 }
 
+/* START EXPERIENCE */
 function startExperience(){
  start.style.display="none";
  card.style.display="flex";
- startMusic(); startPetals(); runSlider();
+
+ // 🔥 GUARANTEED MUSIC START
+ music.volume=0;
+ music.play();
+ let v=0;
+ setInterval(()=>{if(v<.75){v+=.03;music.volume=v}},200);
+
+ startPetals();
+ runSlider();
 }
 
+/* SLIDER */
 function runSlider(){
- showSlide(); clearTimeout(timer);
- const last=index===slides.length-1;
- timer=setTimeout(()=>{index=last?0:index+1;runSlider();}, last?8000:3500);
+ showSlide();
+ clearTimeout(timer);
+ const last=i===slides.length-1;
+ timer=setTimeout(()=>{
+  i=last?0:i+1;
+  runSlider();
+ }, last?8000:3500);
 }
 
 function showSlide(){
- emoji.innerText=slides[index].e;
- text.innerText=slides[index].t;
- sub.innerText=slides[index].s;
- acceptBtn.style.display=slides[index].e==="💍"?"inline-block":"none";
+ emoji.innerText=slides[i].e;
+ text.innerText=slides[i].t;
+ sub.innerText=slides[i].s;
+
+ // 💍 Proposal button ONLY on proposal slide
+ acceptBtn.style.display = slides[i].e==="💍" ? "inline-block":"none";
 }
 
-function startMusic(){
- music.volume=0; music.play();
- let v=0; const f=setInterval(()=>{if(v<.75){v+=.03;music.volume=v}else clearInterval(f)},200);
-}
+/* MUSIC TOGGLE */
 function toggleMusic(){
- music.paused?(music.play(),musicBtn.innerText="⏸️ Music"):(music.pause(),musicBtn.innerText="▶️ Music");
+ if(music.paused){music.play();musicBtn.innerText="⏸️ Music"}
+ else{music.pause();musicBtn.innerText="▶️ Music"}
 }
 
+/* ROSE PETALS */
 function startPetals(){
  setInterval(()=>{
   const p=document.createElement("div");
-  p.className="petal"; p.innerText="🌹";
+  p.className="petal";p.innerText="🌹";
   p.style.left=Math.random()*100+"vw";
   p.style.animationDuration=5+Math.random()*5+"s";
   document.body.appendChild(p);
@@ -254,16 +201,17 @@ function startPetals(){
  },600);
 }
 
+/* 🎆🎇 ACCEPT CELEBRATION */
 function acceptProposal(){
  acceptBtn.style.display="none";
- for(let i=0;i<25;i++){
+ for(let k=0;k<30;k++){
   const f=document.createElement("div");
   f.className="firework";
   f.style.left=Math.random()*100+"vw";
   f.style.top=Math.random()*100+"vh";
   f.style.background=`hsl(${Math.random()*360},100%,60%)`;
   document.body.appendChild(f);
-  setTimeout(()=>f.remove(),1200);
+  setTimeout(()=>f.remove(),1400);
  }
 }
 </script>
