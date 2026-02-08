@@ -33,7 +33,7 @@ body{
   to{transform:translateY(110vh) rotate(360deg);opacity:0;}
 }
 
-/* 🔐 PASSWORD */
+/* 🔐 PASSWORD SCREEN */
 .lock{
   position:absolute;
   inset:0;
@@ -87,7 +87,7 @@ body{
 .card{
   width:90%;
   max-width:460px;
-  height:320px;
+  height:340px;
   background:rgba(255,255,255,.25);
   border-radius:30px;
   display:none;
@@ -113,6 +113,19 @@ body{
   margin-top:10px;
   line-height:1.4;
 }
+
+/* 🎵 MUSIC BUTTON */
+.music-btn{
+  margin-top:16px;
+  padding:8px 22px;
+  border:none;
+  border-radius:30px;
+  background:rgba(255,255,255,.25);
+  color:white;
+  font-size:.95rem;
+  cursor:pointer;
+  backdrop-filter:blur(6px);
+}
 </style>
 </head>
 
@@ -137,10 +150,13 @@ body{
     <div class="emoji" id="emoji">🌹</div>
     <div class="text" id="text"></div>
     <div class="sub" id="sub"></div>
+
+    <!-- 🎵 MUSIC PLAY / PAUSE -->
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">⏸️ Music</button>
   </div>
 </div>
 
-<!-- 🎵 BACKGROUND MUSIC (EMOTIONAL) -->
+<!-- 🎵 BACKGROUND MUSIC (ROMANTIC & SAFE) -->
 <audio id="music" loop>
   <source src="https://cdn.pixabay.com/download/audio/2023/05/16/audio_8c2e9d7c65.mp3" type="audio/mpeg">
 </audio>
@@ -186,18 +202,13 @@ function startExperience(){
 /* 🔁 SLIDER ENGINE */
 function runSlider(){
   showSlide();
-
   clearTimeout(timer);
 
   const isLast = index === slides.length - 1;
-  const delay = isLast ? 8000 : 3500; // ⏱️ 3.5s normal, 8s last
+  const delay = isLast ? 8000 : 3500;
 
   timer = setTimeout(()=>{
-    if(isLast){
-      index = 0; // 🔁 restart
-    }else{
-      index++;
-    }
+    index = isLast ? 0 : index + 1;
     runSlider();
   }, delay);
 }
@@ -208,11 +219,13 @@ function showSlide(){
   document.getElementById("sub").innerText   = slides[index].s;
 }
 
-/* 🎵 MUSIC FADE-IN (STRICTLY WORKING) */
+/* 🎵 MUSIC FADE-IN */
 function startMusic(){
   const audio = document.getElementById("music");
+  const btn = document.getElementById("musicBtn");
   audio.volume = 0;
   audio.play();
+  btn.innerText = "⏸️ Music";
 
   let v = 0;
   const fade = setInterval(()=>{
@@ -223,6 +236,19 @@ function startMusic(){
       clearInterval(fade);
     }
   },200);
+}
+
+/* 🎵 PLAY / PAUSE */
+function toggleMusic(){
+  const audio = document.getElementById("music");
+  const btn = document.getElementById("musicBtn");
+  if(audio.paused){
+    audio.play();
+    btn.innerText = "⏸️ Music";
+  }else{
+    audio.pause();
+    btn.innerText = "▶️ Music";
+  }
 }
 
 /* 🌹 ROSE PETALS */
