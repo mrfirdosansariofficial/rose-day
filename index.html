@@ -52,13 +52,16 @@ body{
   outline:none;
   text-align:center;
 }
+
+/* ✅ PINK LOCK BUTTON (FIXED) */
 .lock button{
   margin-top:12px;
   padding:12px 30px;
   border:none;
   border-radius:30px;
-  background:#ff1744;
+  background:linear-gradient(135deg,#ff5f9e,#ff2f92);
   color:white;
+  font-size:1rem;
   cursor:pointer;
 }
 .lock .error{margin-top:10px;color:white;display:none;}
@@ -150,14 +153,12 @@ body{
     <div class="emoji" id="emoji">🌹</div>
     <div class="text" id="text"></div>
     <div class="sub" id="sub"></div>
-
-    <!-- 🎵 MUSIC PLAY / PAUSE -->
     <button class="music-btn" id="musicBtn" onclick="toggleMusic()">⏸️ Music</button>
   </div>
 </div>
 
-<!-- 🎵 BACKGROUND MUSIC (ROMANTIC & SAFE) -->
-<audio id="music" loop>
+<!-- 🎵 BACKGROUND MUSIC -->
+<audio id="music" loop preload="auto">
   <source src="https://cdn.pixabay.com/download/audio/2023/05/16/audio_8c2e9d7c65.mp3" type="audio/mpeg">
 </audio>
 
@@ -183,50 +184,29 @@ function checkPassword(){
   if(document.getElementById("password").value === PASSWORD){
     document.getElementById("lock").style.display="none";
     document.getElementById("start").style.display="flex";
-    setTimeout(()=>location.reload(),300000); // auto-lock 5 min
+    setTimeout(()=>location.reload(),300000);
   }else{
     document.getElementById("error").style.display="block";
   }
 }
 
-/* START EXPERIENCE */
+/* ▶️ START EXPERIENCE (🔥 MUSIC FIX HERE) */
 function startExperience(){
   document.getElementById("start").style.display="none";
   document.getElementById("card").style.display="flex";
 
-  startMusic();
+  // 🔥 GUARANTEED MUSIC START
+  const audio = document.getElementById("music");
+  audio.volume = 0;
+  audio.play(); // 👈 direct user gesture
+  fadeInMusic(audio);
+
   startPetals();
   runSlider();
 }
 
-/* 🔁 SLIDER ENGINE */
-function runSlider(){
-  showSlide();
-  clearTimeout(timer);
-
-  const isLast = index === slides.length - 1;
-  const delay = isLast ? 8000 : 3500;
-
-  timer = setTimeout(()=>{
-    index = isLast ? 0 : index + 1;
-    runSlider();
-  }, delay);
-}
-
-function showSlide(){
-  document.getElementById("emoji").innerText = slides[index].e;
-  document.getElementById("text").innerText  = slides[index].t;
-  document.getElementById("sub").innerText   = slides[index].s;
-}
-
-/* 🎵 MUSIC FADE-IN */
-function startMusic(){
-  const audio = document.getElementById("music");
-  const btn = document.getElementById("musicBtn");
-  audio.volume = 0;
-  audio.play();
-  btn.innerText = "⏸️ Music";
-
+/* 🎵 FADE-IN */
+function fadeInMusic(audio){
   let v = 0;
   const fade = setInterval(()=>{
     if(v < 0.75){
@@ -249,6 +229,26 @@ function toggleMusic(){
     audio.pause();
     btn.innerText = "▶️ Music";
   }
+}
+
+/* 🔁 SLIDER */
+function runSlider(){
+  showSlide();
+  clearTimeout(timer);
+
+  const isLast = index === slides.length - 1;
+  const delay = isLast ? 8000 : 3500;
+
+  timer = setTimeout(()=>{
+    index = isLast ? 0 : index + 1;
+    runSlider();
+  }, delay);
+}
+
+function showSlide(){
+  document.getElementById("emoji").innerText = slides[index].e;
+  document.getElementById("text").innerText  = slides[index].t;
+  document.getElementById("sub").innerText   = slides[index].s;
 }
 
 /* 🌹 ROSE PETALS */
