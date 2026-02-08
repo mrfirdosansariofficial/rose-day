@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Tania ❤️ Rose Day</title>
+<title>Tania ❤️ Valentine Proposal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -13,64 +13,104 @@ html,body{
   font-family:Arial, sans-serif;
 }
 
-/* 💗 PINK BACKGROUND */
+/* 💗 CINEMATIC PINK BACKGROUND */
 body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(180deg,#ffb6c1,#ff69b4,#ff1493);
+  background:linear-gradient(180deg,#ffb6c1,#ff69b4,#c2185b);
 }
 
-/* START SCREEN */
-.start{
+/* 🌹 ROSE PETALS */
+.petal{
+  position:fixed;
+  top:-10%;
+  font-size:22px;
+  pointer-events:none;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);opacity:0;}
+}
+
+/* 🔐 PASSWORD SCREEN */
+.lock{
   position:absolute;
   inset:0;
   display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:rgba(255,105,180,.45);
+  z-index:20;
+}
+.lock h2{color:white;margin-bottom:12px;}
+.lock input{
+  padding:12px 18px;
+  border-radius:30px;
+  border:none;
+  outline:none;
+  font-size:1rem;
+  text-align:center;
+}
+.lock button{
+  margin-top:12px;
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  background:#ff1744;
+  color:white;
+  font-size:1rem;
+  cursor:pointer;
+}
+.lock .error{margin-top:10px;color:white;display:none;}
+
+/* ▶️ START SCREEN */
+.start{
+  position:absolute;
+  inset:0;
+  display:none;
   justify-content:center;
   align-items:center;
   background:rgba(255,182,193,.4);
-  z-index:10;
+  z-index:15;
 }
 .start button{
-  padding:18px 36px;
-  font-size:1.2rem;
+  padding:20px 44px;
+  font-size:1.3rem;
   border:none;
-  border-radius:50px;
-  background:#ff1744;
-  color:#fff;
+  border-radius:60px;
+  background:linear-gradient(135deg,#ff1744,#ff69b4);
+  color:white;
   cursor:pointer;
 }
 
-/* CARD */
+/* 💖 MAIN CARD */
 .card{
-  width:85%;
-  max-width:420px;
-  height:280px;
+  width:90%;
+  max-width:440px;
+  height:300px;
   background:rgba(255,255,255,.25);
-  border-radius:25px;
+  border-radius:30px;
   display:none;
   justify-content:center;
   align-items:center;
   text-align:center;
+  z-index:5;
 }
 
 /* TEXT */
 .emoji{
-  font-family:
-    "Apple Color Emoji",
-    "Segoe UI Emoji",
-    "Noto Color Emoji",
-    "Android Emoji",
-    sans-serif;
-  font-size:2.6rem;
+  font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji","Android Emoji",sans-serif;
+  font-size:2.8rem;
 }
 .text{
-  font-size:2rem;
+  font-size:2.1rem;
   color:white;
   margin-top:10px;
 }
 .sub{
-  font-size:1.2rem;
+  font-size:1.25rem;
   color:white;
   margin-top:8px;
 }
@@ -79,64 +119,104 @@ body{
 
 <body>
 
-<!-- START -->
-<div class="start" id="start">
-  <button onclick="startLove()">❤️ Start ❤️</button>
+<!-- 🔐 PASSWORD -->
+<div class="lock" id="lock">
+  <h2>🔐 Enter Password</h2>
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="checkPassword()">Unlock ❤️</button>
+  <div class="error" id="error">❌ Wrong password</div>
 </div>
 
-<!-- CARD -->
+<!-- ▶️ START -->
+<div class="start" id="start">
+  <button onclick="startExperience()">💖 Start Our Love Story 💖</button>
+</div>
+
+<!-- 💌 CARD -->
 <div class="card" id="card">
   <div>
     <div class="emoji" id="emoji">🌹</div>
-    <div class="text" id="text">Happy Rose Day</div>
-    <div class="sub" id="sub">Tania ❤️</div>
+    <div class="text" id="text"></div>
+    <div class="sub" id="sub"></div>
   </div>
 </div>
 
-<!-- MUSIC -->
+<!-- 🎵 MUSIC -->
 <audio id="music" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/10/26/audio_5b0c7b7c1a.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* ✅ CORRECTED SLIDES ARRAY */
+/* 🔐 PASSWORD */
+const PASSWORD = "Tania";
+
+/* 💖 SLIDES (LAST = PROPOSAL) */
 const slides = [
-  { e:"🌹", t:"Happy Rose Day", s:"Tania ❤️" },
-  { e:"❤️", t:"Tania Meri Jaan 👩‍❤️‍👨", s:"You are my forever" },
-  { e:"😘", t:"Babu 🌻", s:"My heart beats for you" },
-  { e:"🌹", t:"Ummaah 😘", s:"Every breath loves you" },
-  { e:"❤️", t:"I Love You", s:"Forever & Always" },
-  { e:"🤱", t:"Tania Mere Bacche ki Mummy Banogi", s:"On God Zindagi Bhar Bahut Pyaar Karunga 👩‍❤️‍👨" }
+  {e:"🌹", t:"Advance Happy Valentine’s Day", s:"Tania ❤️"},
+  {e:"❤️", t:"Tania Meri Jaan 👩‍❤️‍👨", s:"You are my forever"},
+  {e:"😘", t:"Babu 🌻", s:"My heart beats for you"},
+  {e:"🌹", t:"Ummaah 😘", s:"Every breath loves you"},
+  {e:"💍", t:"Will You Marry Me?", s:"Tania 💖 Forever With Me"}
 ];
 
-let i = 0;
+let index = 0;
+let slideTimer;
 
-function startLove(){
-  document.getElementById("start").style.display = "none";
-  document.getElementById("card").style.display = "flex";
+/* PASSWORD CHECK */
+function checkPassword(){
+  if(document.getElementById("password").value === PASSWORD){
+    document.getElementById("lock").style.display="none";
+    document.getElementById("start").style.display="flex";
+    setTimeout(()=>location.reload(),300000); // auto-lock 5 min
+  }else{
+    document.getElementById("error").style.display="block";
+  }
+}
 
-  // 🎵 Music fade-in (safe)
+/* START EXPERIENCE */
+function startExperience(){
+  document.getElementById("start").style.display="none";
+  document.getElementById("card").style.display="flex";
+
+  startMusic();
+  startPetals();
+  showSlide();
+  slideTimer = setInterval(showSlide, 4000);
+}
+
+/* SLIDES */
+function showSlide(){
+  document.getElementById("emoji").innerText = slides[index].e;
+  document.getElementById("text").innerText  = slides[index].t;
+  document.getElementById("sub").innerText   = slides[index].s;
+
+  if(index === slides.length - 1){
+    clearInterval(slideTimer); // pause on proposal
+  }else{
+    index++;
+  }
+}
+
+/* 🎵 MUSIC FADE-IN */
+function startMusic(){
   const audio = document.getElementById("music");
   audio.volume = 0;
   audio.play();
-
   let v = 0;
-  setInterval(()=>{
-    if(v < 0.7){
-      v += 0.05;
-      audio.volume = v;
-    }
-  },200);
-
-  changeSlide();
-  setInterval(changeSlide,3000);
+  setInterval(()=>{ if(v < 0.7){ v += 0.03; audio.volume = v; } },200);
 }
 
-function changeSlide(){
-  document.getElementById("emoji").innerText = slides[i].e;
-  document.getElementById("text").innerText  = slides[i].t;
-  document.getElementById("sub").innerText   = slides[i].s;
-  i = (i + 1) % slides.length;
+/* 🌹 ROSE PETALS */
+function startPetals(){
+  setInterval(()=>{
+    const p = document.createElement("div");
+    p.className = "petal";
+    p.innerText = "🌹";
+    p.style.left = Math.random()*100 + "vw";
+    p.style.animationDuration = 5 + Math.random()*5 + "s";
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),10000);
+  },600);
 }
 </script>
 
