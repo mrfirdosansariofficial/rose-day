@@ -13,7 +13,7 @@ html,body{
   font-family:Arial, sans-serif;
 }
 
-/* 💗 CINEMATIC PINK BACKGROUND */
+/* 💗 PINK BACKGROUND */
 body{
   display:flex;
   justify-content:center;
@@ -33,7 +33,7 @@ body{
   to{transform:translateY(110vh) rotate(360deg);opacity:0;}
 }
 
-/* 🔐 PASSWORD SCREEN */
+/* 🔐 PASSWORD */
 .lock{
   position:absolute;
   inset:0;
@@ -50,7 +50,6 @@ body{
   border-radius:30px;
   border:none;
   outline:none;
-  font-size:1rem;
   text-align:center;
 }
 .lock button{
@@ -60,12 +59,11 @@ body{
   border-radius:30px;
   background:#ff1744;
   color:white;
-  font-size:1rem;
   cursor:pointer;
 }
 .lock .error{margin-top:10px;color:white;display:none;}
 
-/* ▶️ START SCREEN */
+/* ▶️ START */
 .start{
   position:absolute;
   inset:0;
@@ -85,7 +83,7 @@ body{
   cursor:pointer;
 }
 
-/* 💖 MAIN CARD */
+/* 💖 CARD */
 .card{
   width:90%;
   max-width:460px;
@@ -142,7 +140,7 @@ body{
   </div>
 </div>
 
-<!-- 🎵 EMOTIONAL MUSIC -->
+<!-- 🎵 BACKGROUND MUSIC (EMOTIONAL) -->
 <audio id="music" loop>
   <source src="https://cdn.pixabay.com/download/audio/2023/05/16/audio_8c2e9d7c65.mp3" type="audio/mpeg">
 </audio>
@@ -162,7 +160,7 @@ const slides = [
 ];
 
 let index = 0;
-let slideTimer;
+let timer = null;
 
 /* PASSWORD CHECK */
 function checkPassword(){
@@ -182,25 +180,26 @@ function startExperience(){
 
   startMusic();
   startPetals();
-  playSlides();
+  runSlider();
 }
 
-/* 🎞️ SLIDER WITH 15s PAUSE ON LAST */
-function playSlides(){
+/* 🔁 SLIDER ENGINE */
+function runSlider(){
   showSlide();
 
-  slideTimer = setInterval(()=>{
-    if(index === slides.length - 1){
-      clearInterval(slideTimer);
-      setTimeout(()=>{
-        index = 0;
-        playSlides(); // 🔁 restart slider
-      },15000); // ⏸️ 15 sec pause
+  clearTimeout(timer);
+
+  const isLast = index === slides.length - 1;
+  const delay = isLast ? 8000 : 3500; // ⏱️ 3.5s normal, 8s last
+
+  timer = setTimeout(()=>{
+    if(isLast){
+      index = 0; // 🔁 restart
     }else{
       index++;
-      showSlide();
     }
-  },4500);
+    runSlider();
+  }, delay);
 }
 
 function showSlide(){
@@ -209,16 +208,19 @@ function showSlide(){
   document.getElementById("sub").innerText   = slides[index].s;
 }
 
-/* 🎵 MUSIC FADE-IN */
+/* 🎵 MUSIC FADE-IN (STRICTLY WORKING) */
 function startMusic(){
   const audio = document.getElementById("music");
   audio.volume = 0;
   audio.play();
+
   let v = 0;
-  setInterval(()=>{
+  const fade = setInterval(()=>{
     if(v < 0.75){
-      v += 0.025;
+      v += 0.03;
       audio.volume = v;
+    }else{
+      clearInterval(fade);
     }
   },200);
 }
