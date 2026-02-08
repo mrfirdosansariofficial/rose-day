@@ -27,11 +27,11 @@ body{
 /* FIREWORKS */
 .firework{
  position:fixed;width:6px;height:6px;border-radius:50%;
- animation:boom 1.4s ease-out forwards
+ animation:boom 1.5s ease-out forwards
 }
 @keyframes boom{
  from{transform:scale(0);opacity:1}
- to{transform:scale(5);opacity:0}
+ to{transform:scale(6);opacity:0}
 }
 
 /* LOCK */
@@ -128,17 +128,17 @@ body{
 <script>
 const PASSWORD="Tania";
 
+/* 💖 SLIDES (PROPOSAL LAST) */
 const slides=[
  {e:"🌹",t:"Advance Happy Valentine’s Day",s:"Tania ❤️"},
  {e:"❤️",t:"Tania Meri Jaan 👩‍❤️‍👨",s:"You are my forever"},
  {e:"😘",t:"Babu 🌻",s:"My heart beats for you"},
- {e:"🌹",t:"Ummaah 😘",s:"Every breath loves you"},
- {e:"💍",t:"Will You Marry Me?",s:"Tania 💖 Forever With Me"},
  {e:"🤱",t:"Tania kya tum mere hone wale bacchon 👼 ki Ammi banogi?",
-  s:"Main tumse zindagi bhar bahut pyaar karunga ❤️"}
+  s:"Main tumse zindagi bhar bahut pyaar karunga ❤️"},
+ {e:"💍",t:"Will You Marry Me?",s:"Tania 💖 Forever With Me"}
 ];
 
-let i=0,timer;
+let i=0,timer=null,paused=false;
 
 /* PASSWORD */
 function checkPassword(){
@@ -153,7 +153,6 @@ function startExperience(){
  start.style.display="none";
  card.style.display="flex";
 
- // 🔥 GUARANTEED MUSIC START
  music.volume=0;
  music.play();
  let v=0;
@@ -165,13 +164,18 @@ function startExperience(){
 
 /* SLIDER */
 function runSlider(){
+ if(paused) return;
+
  showSlide();
  clearTimeout(timer);
+
  const last=i===slides.length-1;
+ const delay= last?8000:3500;
+
  timer=setTimeout(()=>{
-  i=last?0:i+1;
+  i= last?0:i+1;
   runSlider();
- }, last?8000:3500);
+ },delay);
 }
 
 function showSlide(){
@@ -179,14 +183,13 @@ function showSlide(){
  text.innerText=slides[i].t;
  sub.innerText=slides[i].s;
 
- // 💍 Proposal button ONLY on proposal slide
  acceptBtn.style.display = slides[i].e==="💍" ? "inline-block":"none";
 }
 
 /* MUSIC TOGGLE */
 function toggleMusic(){
- if(music.paused){music.play();musicBtn.innerText="⏸️ Music"}
- else{music.pause();musicBtn.innerText="▶️ Music"}
+ music.paused?(music.play(),musicBtn.innerText="⏸️ Music"):
+ (music.pause(),musicBtn.innerText="▶️ Music");
 }
 
 /* ROSE PETALS */
@@ -204,15 +207,22 @@ function startPetals(){
 /* 🎆🎇 ACCEPT CELEBRATION */
 function acceptProposal(){
  acceptBtn.style.display="none";
- for(let k=0;k<30;k++){
+ paused=true;
+
+ for(let k=0;k<80;k++){
   const f=document.createElement("div");
   f.className="firework";
   f.style.left=Math.random()*100+"vw";
   f.style.top=Math.random()*100+"vh";
   f.style.background=`hsl(${Math.random()*360},100%,60%)`;
   document.body.appendChild(f);
-  setTimeout(()=>f.remove(),1400);
+  setTimeout(()=>f.remove(),1500);
  }
+
+ setTimeout(()=>{
+  paused=false;
+  runSlider();
+ },6000); // ⏸️ HOLD 6 SEC
 }
 </script>
 
